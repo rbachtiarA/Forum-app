@@ -1,3 +1,5 @@
+import { ThemeProvider } from "@/components/theme-provider";
+import NavbarLayout from "@/features/navbar/navbarLayout";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -22,12 +24,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* <AuthProvider> */}
+            <NavbarLayout />
+              <main className="flex-1 flex flex-col justify-center items-center h-full px-1">
+                {children}
+              </main>
+          {/* </AuthProvider> */}
+        </ThemeProvider>
       </body>
     </html>
   );
