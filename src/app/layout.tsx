@@ -38,7 +38,7 @@ export default function RootLayout({
         >
           {/* <AuthProvider> */}
             <NavbarLayout />
-              <main className="flex-1 flex flex-col justify-center items-center h-full px-1">
+              <main className="flex-1 flex flex-col justify-center items-center h-full px-1 py-2">
                 {children}
               </main>
           {/* </AuthProvider> */}

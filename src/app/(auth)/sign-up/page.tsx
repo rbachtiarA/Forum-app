@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default async function Page() {
   return (
-    <Card className='md:max-w-[480px]'>
+    <Card className='md:max-w-[480px] w-full'>
       <CardHeader>
         <CardTitle>
           Sign-up Account

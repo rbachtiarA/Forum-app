@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 export default async function PostsLayout() {
     const posts = await prisma.post.findMany()
   return (
-    <div>
+    <div className="flex flex-col gap-y-2 mt-2">
         {posts.map((post) => (
             <Card key={post.id}>
                 <CardHeader>
