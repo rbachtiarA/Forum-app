@@ -1,25 +1,23 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import prisma from "@/lib/prisma"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
+import { postsOptions } from "./postQueries"
+import { PostLists } from "./PostLists"
 
 export default async function PostsLayout() {
-    const posts = await prisma.post.findMany()
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: 60 * 1000
+            }
+        }
+    })
+    await queryClient.prefetchQuery(postsOptions)
+
   return (
     <div className="flex flex-col gap-y-2 mt-2">
-        {posts.map((post) => (
-            <Card key={post.id}>
-                <CardHeader>
-                    <CardTitle>
-                        {post.title}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p>{post.content}</p>
-                </CardContent>
-                <CardFooter>
-                    {post.createdAt.toDateString()}
-                </CardFooter>
-            </Card>
-        ))}
+        <h1>Timeline Post</h1>
+        <HydrationBoundary state={dehydrate(queryClient)} >
+            <PostLists />
+        </HydrationBoundary>
     </div>
   )
 }

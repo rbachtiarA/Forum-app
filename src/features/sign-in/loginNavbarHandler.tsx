@@ -1,5 +1,5 @@
 'use client'
-import { useAuth } from "@/provider/AuthProvider"
+import { useAuth } from "@/utils/provider/AuthProvider"
 
 export default function LoginNavbarHandler() {
   const { user, onLogout } = useAuth()

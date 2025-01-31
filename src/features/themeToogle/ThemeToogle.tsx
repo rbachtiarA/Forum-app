@@ -10,7 +10,7 @@ export default function ThemeToogle() {
     }
 
   return (
-    <div>
+    <>
         <Button variant={'outline'} className="bg-secondary" size={'icon'} onClick={handleClickTheme}>
             {
                 theme === 'light'? 
@@ -18,6 +18,6 @@ export default function ThemeToogle() {
                 <Moon className=" rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             }
         </Button>
-    </div>
+    </>
   )
 }

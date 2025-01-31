@@ -1,6 +1,7 @@
 import { checkUser } from "../cookies"
 import LoginNavbarLayout from "../sign-in/loginNavbarLayout"
-import ThemeToogle from "../themeToogle/ThemeToogle"
+import ThemeSwitcher from "../themeToogle/ThemeSwitcher"
+
 export default async function NavbarLayout() {
   const user = await checkUser()
   return (
@@ -12,7 +13,7 @@ export default async function NavbarLayout() {
         <li>Settings</li>
       </ol>
       <div className="flex gap-x-1">
-        <ThemeToogle />
+        <ThemeSwitcher />
         <LoginNavbarLayout userServer={user}/>
       </div>
     </nav>

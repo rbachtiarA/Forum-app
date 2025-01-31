@@ -1,8 +1,8 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import NavbarLayout from "@/features/navbar/navbarLayout";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Provider from "@/utils/provider/Provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,19 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* <AuthProvider> */}
-            <NavbarLayout />
-              <main className="flex-1 flex flex-col justify-center items-center h-full px-1 py-2">
-                {children}
-              </main>
-          {/* </AuthProvider> */}
-        </ThemeProvider>
+        <Provider>
+          <NavbarLayout />
+          <main className="flex-1 flex flex-col justify-center items-center h-full px-1 py-2">
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );
