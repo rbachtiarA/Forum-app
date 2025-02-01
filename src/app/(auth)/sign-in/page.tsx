@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import SigninLayout from '@/features/sign-in/SigninLayout'
+import SigninLayout from '@/features/auth/sign-in/SigninLayout'
 import Link from 'next/link'
 
 export default async function Page() {

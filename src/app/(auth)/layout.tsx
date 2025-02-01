@@ -8,7 +8,9 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
     if(data.user) return redirect('/')
     return (
         <>
+            <main className="flex-1 flex flex-col justify-center items-center h-full px-1 py-2">
             {children}
+            </main>
         </>
     )
 }

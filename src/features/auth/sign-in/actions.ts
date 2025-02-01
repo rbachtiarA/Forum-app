@@ -4,7 +4,7 @@ import { AuthApiError } from "@supabase/supabase-js";
 
 export async function signinUser({ email, password }: LoginSchema) {
     try {
-        const supabase = await createClient()
+        const supabase = createClient()
         const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password

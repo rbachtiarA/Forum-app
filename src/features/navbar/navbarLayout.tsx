@@ -1,9 +1,11 @@
-import { checkUser } from "../cookies"
-import LoginNavbarLayout from "../sign-in/loginNavbarLayout"
+import { redirect } from "next/navigation"
+import { getUserSession } from "../auth/getUser"
+import LoginNavbarLayout from "../auth/sign-in/loginNavbarLayout"
 import ThemeSwitcher from "../themeToogle/ThemeSwitcher"
 
 export default async function NavbarLayout() {
-  const user = await checkUser()
+  const user = await getUserSession()
+  if(!user) return redirect('/sign-in')
   return (
     <nav className="w-full flex flex-row-reverse md:flex-row py-1 justify-between bg-secondary text-foreground items-center px-1">
       <ol className="md:flex flex-row w-full gap-2 hidden">
@@ -14,7 +16,7 @@ export default async function NavbarLayout() {
       </ol>
       <div className="flex gap-x-1">
         <ThemeSwitcher />
-        <LoginNavbarLayout userServer={user}/>
+        <LoginNavbarLayout userServer={{email: user.email!, userId: user.id}}/>
       </div>
     </nav>
   )

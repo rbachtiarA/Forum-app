@@ -6,10 +6,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { loginSchema, LoginSchema } from '@/utils/schemas/LoginSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { signinUser } from './actions'
-import { useRouter } from 'next/navigation'
 
 export default function SigninLayout() {
     const form = useForm<LoginSchema>({
@@ -17,21 +17,27 @@ export default function SigninLayout() {
     })
     
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = form
-    const router = useRouter()
     const [formError, setFormError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (data) => {
-      try {
-        const status = await signinUser(data)
-        if(status !== 'success') throw status
-        reset()
-        router.push('/')
-      } catch (error) {
-        setFormError(error as string)
-        console.log(error)
-      }
+      // try {
+      //   const status = await signinUser(data)
+      //   if(status !== 'success') throw status
+      //   reset()
+      //   redirect('/')
+      // } catch (error) {
+      //   console.log(error)
+      //   setFormError(error as string)
+      // }
 
+      const status = await signinUser(data)
+      if(status !== 'success') {
+        setFormError(status)
+        return;
+      }
+      reset()
+      redirect('/')
     }
 
   return (
@@ -46,7 +52,7 @@ export default function SigninLayout() {
         <Link href={'/sign-in?con=forgot-pass'} className='italic'>Forget password ?</Link>
       </div>
       <div className='w-full'>
-        {formError && <p className='text-center text-destructive text-sm'>{formError}</p>}
+        {formError && <p className='text-center text-destructive text-sm'>{`${formError}`}</p>}
         <Button disabled={isSubmitting} className='font-semibold w-full'>
           {isSubmitting? "Loading..." : "Login"}
         </Button>
