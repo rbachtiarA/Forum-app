@@ -21,3 +21,9 @@ model Post {
   title     String
   content   String
 }
+
+model Profile {
+  id       String @id
+  username String @unique
+  picture  String
+}

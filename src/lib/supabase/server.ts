@@ -1,5 +1,6 @@
 'use server'
 import { createServerClient, serializeCookieHeader } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 export async function createSSRClient() {
     const cookiesStore = await cookies()
@@ -20,4 +21,11 @@ export async function createSSRClient() {
             },  
         }
     ) 
+}
+
+export async function createAdminClient() {
+    return createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )  
 }
