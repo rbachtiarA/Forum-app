@@ -3,11 +3,9 @@ import PostsLayout from "@/features/forumPost/PostsLayout";
 
 export default async function Page() {
   return (
-    <main>
-      <div className="md:min-w-[480px] w-full">
+      <div className="md:min-w-[480px] max-w-[1080px] w-full">
         <CreatePostLayout />
         <PostsLayout />
       </div>
-    </main>
   )
 }
