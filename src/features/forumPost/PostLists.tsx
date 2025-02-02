@@ -4,6 +4,8 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { postsOptions } from './postQueries'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { AvatarImage } from '@radix-ui/react-avatar'
 
 export function PostLists() {
   const { data, isError, error } = useQuery(postsOptions)
@@ -31,7 +33,16 @@ export function PostLists() {
                     <p>{post.content}</p>
                 </CardContent>
                 <CardFooter>
-                    {post.createdAt.toDateString()}
+                    <div className='flex justify-center items-center gap-2'>
+                        <Avatar>
+                          <AvatarImage src={post.user.picture} alt='profile picture' />
+                          <AvatarFallback>{post.user.username[0].toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                        <p>{post.user.username}</p>
+                        <p className='text-muted-foreground'>
+                          {post.createdAt.toDateString()}
+                        </p>
+                    </div>
                 </CardFooter>
             </Card>
         ))}

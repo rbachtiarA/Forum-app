@@ -30,7 +30,7 @@ export default function SigninLayout() {
       //   console.log(error)
       //   setFormError(error as string)
       // }
-
+      setFormError('')
       const status = await signinUser(data)
       if(status !== 'success') {
         setFormError(status)

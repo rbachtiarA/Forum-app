@@ -15,9 +15,12 @@ export async function signinUser({ email, password }: LoginSchema) {
         return 'success'
     } catch (error) {
         if(error instanceof AuthApiError) {
+            console.log(error.code)
             switch (error.code) {
                 case 'invalid_credentials':
                     return 'Email / Password incorrect'
+                case 'email_not_confirmed':
+                    return 'Email need to be verification'
                 default:
                     break
             }

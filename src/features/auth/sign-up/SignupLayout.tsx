@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { signupUser } from "./actions"
 import { useState } from "react"
+import { redirect } from "next/navigation"
 
 export default function RegisterLayout() {
   const [formError, setFormError] = useState('')
@@ -27,12 +28,13 @@ export default function RegisterLayout() {
   // }
 
   const handleRegisterSubmit: SubmitHandler<RegisterSchema> = async (data) => {
-    try {
+      setFormError('')
       const status = await signupUser(data)
-      if(status !== 'Success') throw status
-    } catch (error) {
-      setFormError(error as string)
-    }
+      if(status === 'Success') {
+        return redirect('/sign-in')
+      }
+      setFormError(status)
+    
   }
 
   return (

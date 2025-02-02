@@ -14,7 +14,9 @@ export async function signupUser(formData: RegisterSchema) {
     
     const { data, error: errorCreateUser } = await supabase.auth.admin.createUser({
       email: email,
-      password: password
+      password: password,
+      // TODO : DEMO ONLY TO BYPASS VERIFICATION
+      email_confirm: true
     })
 
     if(errorCreateUser) throw errorCreateUser
@@ -28,7 +30,6 @@ export async function signupUser(formData: RegisterSchema) {
     // if(errorLink) throw errorLink
 
     // console.log(verificationLink);
-    
     
     const generateUsername = email.split('@')[0]
     await prisma.profile.create({
@@ -47,9 +48,8 @@ export async function signupUser(formData: RegisterSchema) {
           return 'Email already exist'
         case 'invalid_credentials':
           return 'Invalid Credentials'
-    } 
-
-    return 'Something wrong, please try again later'
+      } 
     }
+  return 'Something wrong, please try again later'
   }
 }
