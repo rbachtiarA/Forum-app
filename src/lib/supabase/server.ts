@@ -1,5 +1,5 @@
 'use server'
-import { createServerClient, serializeCookieHeader } from '@supabase/ssr'
+import { createServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 export async function createSSRClient() {
@@ -13,10 +13,13 @@ export async function createSSRClient() {
                     return cookiesStore.getAll()
                 },
                 setAll(cookiesToSet) {
-                    cookiesToSet.map(({name, value, options}) => {
-                            serializeCookieHeader(name, value, options)
-                        }
-                    )
+                    try {
+                        cookiesToSet.forEach(({ name, value, options }) => {
+                            cookiesStore.set(name, value, options)
+                        });
+                    } catch {
+                        
+                    }
                 }
             },  
         }

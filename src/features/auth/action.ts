@@ -1,11 +1,13 @@
 'use server'
 
 import prisma from "@/lib/prisma"
-import { createAdminClient } from "@/lib/supabase/server"
-import { RegisterSchema } from "@/utils/schemas/RegisterSchema"
+import { createAdminClient, createSSRClient } from "@/lib/supabase/server"
+import { type LoginSchema } from "@/utils/schemas/LoginSchemas"
+import { type RegisterSchema } from "@/utils/schemas/RegisterSchema"
 import { AuthApiError } from "@supabase/supabase-js"
+import { redirect } from "next/navigation"
 
-export async function signupUser(formData: RegisterSchema) {
+export async function signupAuthAction(formData: RegisterSchema) {
   try {
     const { email, password } = formData
     
@@ -52,4 +54,38 @@ export async function signupUser(formData: RegisterSchema) {
     }
   return 'Something wrong, please try again later'
   }
+}
+
+export async function signinAuthAction({ email, password }: LoginSchema) {
+    try {
+        const supabase = await createSSRClient()
+        const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        })
+        
+        if(error) throw error
+
+        return 'success'
+    } catch (error) {
+        if(error instanceof AuthApiError) {
+            console.log(error.code)
+            switch (error.code) {
+                case 'invalid_credentials':
+                    return 'Email / Password incorrect'
+                case 'email_not_confirmed':
+                    return 'Email need to be verification'
+                default:
+                    break
+            }
+        }
+        return `something wrong, please try again later`
+    }
+    
+}
+
+export async function signoutAuthAction() {
+  const supabase = await createSSRClient()
+  await supabase.auth.signOut();
+  return redirect("/sign-in")
 }

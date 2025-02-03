@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 import { registerSchema, RegisterSchema } from "@/utils/schemas/RegisterSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { signupUser } from "./actions"
 import { useState } from "react"
 import { redirect } from "next/navigation"
+import { signupAuthAction } from "../action"
 
 export default function RegisterLayout() {
   const [formError, setFormError] = useState('')
@@ -29,7 +29,7 @@ export default function RegisterLayout() {
 
   const handleRegisterSubmit: SubmitHandler<RegisterSchema> = async (data) => {
       setFormError('')
-      const status = await signupUser(data)
+      const status = await signupAuthAction(data)
       if(status === 'Success') {
         return redirect('/sign-in')
       }

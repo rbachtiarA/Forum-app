@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { signinUser } from './actions'
+import { signinAuthAction } from '../action'
 
 export default function SigninLayout() {
     const form = useForm<LoginSchema>({
@@ -21,17 +21,8 @@ export default function SigninLayout() {
     const [showPassword, setShowPassword] = useState(false)
 
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (data) => {
-      // try {
-      //   const status = await signinUser(data)
-      //   if(status !== 'success') throw status
-      //   reset()
-      //   redirect('/')
-      // } catch (error) {
-      //   console.log(error)
-      //   setFormError(error as string)
-      // }
       setFormError('')
-      const status = await signinUser(data)
+      const status = await signinAuthAction(data)
       if(status !== 'success') {
         setFormError(status)
         return;
