@@ -66,3 +66,33 @@ export async function getPosts(sort: 'ASC' | 'DES' = 'DES') {
             })
     }
 }
+
+export async function getPostsUser(username: string) {
+    try {
+        const userId = await prisma.profile.findUnique({
+            where: {
+                username: username
+            },
+            select: {
+                id: true
+            }
+        })
+        if(!userId) throw { data: null, error: 'NOT_FOUND' }
+        const userPosts = await prisma.post.findMany({
+            where: {
+                userId: userId.id
+            },
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        picture: true
+                    }
+                }
+            }
+        })
+        return { data: userPosts || [], error: null } 
+    } catch (error) {
+        return { error }
+    }
+}

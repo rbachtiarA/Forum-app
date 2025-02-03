@@ -4,8 +4,6 @@ import { createSSRClient } from "@/lib/supabase/server"
 export async function getUserSession() {
     const supabase = await createSSRClient()
     const { data } = await supabase.auth.getUser()
-    const { data: sessionData } = await supabase.auth.getSession()
-    console.log(sessionData.session?.access_token)
     return data.user
 }
 

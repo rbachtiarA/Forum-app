@@ -3,11 +3,15 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { postsOptions } from './postQueries'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { AvatarImage } from '@radix-ui/react-avatar'
+// import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+// import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+// import { AvatarImage } from '@radix-ui/react-avatar'
+// import { postDateText } from './postDate'
+// import Link from 'next/link'
+import PostTemplate from './PostTemplate'
 
 export function PostLists() {
+  const currentDate = new Date()
   const { data, isError, error } = useQuery(postsOptions)
 
   if(!data || isError) {
@@ -23,28 +27,7 @@ export function PostLists() {
   return (
     <div className='flex flex-col gap-y-2 mt-2'>
       {data.map((post) => (
-            <Card key={post.id}>
-                <CardHeader>
-                    <CardTitle>
-                        {post.title}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p>{post.content}</p>
-                </CardContent>
-                <CardFooter>
-                    <div className='flex justify-center items-center gap-2'>
-                        <Avatar>
-                          <AvatarImage src={post.user.picture} alt='profile picture' />
-                          <AvatarFallback>{post.user.username[0].toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <p>{post.user.username}</p>
-                        <p className='text-muted-foreground'>
-                          {post.createdAt.toDateString()}
-                        </p>
-                    </div>
-                </CardFooter>
-            </Card>
+            <PostTemplate key={post.id} post={post} currentDate={currentDate}/> 
         ))}
     </div>
   )
