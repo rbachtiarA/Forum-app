@@ -13,7 +13,6 @@ export default function Signup() {
         })
 
         const data = await res.json()
-        console.log(data);
         return data
     }
 
@@ -22,7 +21,9 @@ export default function Signup() {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google'
         })
-        console.log({ data, error });
+
+        if(error) return error
+        return data
         
     }
   return (

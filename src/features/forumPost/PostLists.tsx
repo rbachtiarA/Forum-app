@@ -12,11 +12,9 @@ import PostTemplate from './PostTemplate'
 
 export function PostLists() {
   const currentDate = new Date()
-  const { data, isError, error } = useQuery(postsOptions)
+  const { data, isError } = useQuery(postsOptions)
 
-  if(!data || isError) {
-    console.log(error?.message);
-    
+  if(!data || isError) {    
     return (
       <div>
         <h1>500 : Internal Server Error</h1>

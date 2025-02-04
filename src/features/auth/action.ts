@@ -24,14 +24,6 @@ export async function signupAuthAction(formData: RegisterSchema) {
     if(errorCreateUser) throw errorCreateUser
 
     //TODO : Add Nodemailer with template / use supabase signup
-    // const { data: verificationLink , error: errorLink } = await supabase.auth.admin.generateLink({
-    //     type: 'signup',
-    //     email: email,
-    //     password: password
-    // })
-    // if(errorLink) throw errorLink
-
-    // console.log(verificationLink);
     
     const generateUsername = email.split('@')[0]
     await prisma.profile.create({
@@ -69,7 +61,6 @@ export async function signinAuthAction({ email, password }: LoginSchema) {
         return 'success'
     } catch (error) {
         if(error instanceof AuthApiError) {
-            console.log(error.code)
             switch (error.code) {
                 case 'invalid_credentials':
                     return 'Email / Password incorrect'

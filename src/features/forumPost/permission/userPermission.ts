@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma"
 import { createServerSideClient } from "@/lib/supabase/server"
 
+// TODO : FIX THIS ERROR PROBLEM
+
 export async function getUserSession() {
     const supabase = await createServerSideClient()
     const { data } = await supabase.auth.getUser()

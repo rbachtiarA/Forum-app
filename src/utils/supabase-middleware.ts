@@ -34,9 +34,9 @@ export async function updateSession(request: NextRequest) {
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
   const {
-    data: { user },
+    data: { user }
   } = await supabase.auth.getUser()
-  
+
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/sign-in') &&
@@ -49,8 +49,11 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (
-    request.nextUrl.pathname.startsWith('/sign-in') ||
-    request.nextUrl.pathname.startsWith('/sign-up')
+    user &&
+    (
+      request.nextUrl.pathname.startsWith('/sign-in') ||
+      request.nextUrl.pathname.startsWith('/sign-up')
+    )
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/'
