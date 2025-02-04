@@ -1,8 +1,7 @@
-'use server'
 import { createServerClient } from '@supabase/ssr'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
-export async function createSSRClient() {
+export async function createServerSideClient() {
     const cookiesStore = await cookies()
     return createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,11 +16,11 @@ export async function createSSRClient() {
                         cookiesToSet.forEach(({ name, value, options }) => {
                             cookiesStore.set(name, value, options)
                         });
-                    } catch {
-                        
+                    } catch (error){
+                        console.log('Error on server supabase client', error)
                     }
                 }
-            },  
+            }
         }
     ) 
 }

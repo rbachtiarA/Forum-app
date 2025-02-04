@@ -1,12 +1,12 @@
 'use server'
 
 import prisma from "@/lib/prisma";
-import { createSSRClient } from "@/lib/supabase/server";
+import { createServerSideClient } from "@/lib/supabase/server";
 import { type PostSchema } from "@/utils/schemas/CreatePostSchema";
 
 export async function createPost({ content, title }: PostSchema) {
     try {
-        const supabase = await createSSRClient()
+        const supabase = await createServerSideClient()
         const { data: { user } } = await supabase.auth.getUser()
         
         if(!user) throw 'invalid user'

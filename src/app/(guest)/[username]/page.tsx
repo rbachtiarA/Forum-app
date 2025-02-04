@@ -1,29 +1,34 @@
 import FirstWrapper from "@/components/wrapper/FirstWrapper"
-import { getPostsUser } from "@/features/forumPost/action"
+import SecondWrapper from "@/components/wrapper/secondWrapper"
+import ProfileActionButton from "@/features/forumPost/permission/ProfileActionButton"
+import { userPermission } from "@/features/forumPost/permission/userPermission"
 import PostTemplate from "@/features/forumPost/PostTemplate"
 
 export default async function page({ params }: { params: Promise<{username: string}> }) {
   const currentDate = new Date()
   const username = (await params).username
-  const { data: posts, error } = await getPostsUser(username)
-  if(error) return (
+  const { data, error } = await userPermission(username)
+  if(error || !data) return (
     <div>
       <h1 className="text-6xl">Invalid User</h1>
     </div>
   )
 
-  if(!posts?.length) return (
+  if(!data.posts.length) return (
     <div>
       <h1>User has not post anything yet</h1>
     </div>
   )
   return (
     <FirstWrapper>
-      <div className="flex flex-col gap-y-2">
-        {posts!.map((post) => (
-              <PostTemplate key={post.id} post={post} currentDate={currentDate} />
-          ))}
-      </div>
+      <SecondWrapper>
+        <ProfileActionButton permission={data.permission} />
+        <div className="flex flex-col gap-y-2">
+          {data.posts!.map((post) => (
+                <PostTemplate key={post.id} post={post} currentDate={currentDate} />
+            ))}
+        </div>
+      </SecondWrapper>
     </FirstWrapper>
   )
 }

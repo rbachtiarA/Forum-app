@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { getUserProfile } from "../getUser"
 import AuthNavbarHandler from "./AuthNavbarHandler"
 
@@ -9,9 +10,9 @@ export default async function LoginNavbarLayout({ userServer }: { userServer: { 
     <div className="flex justify-center items-center gap-x-2">
       {
         username &&
-        <div>
+        <Link href={`/${username}`} className="hover:underline">
           <p>{username || 'unknown'}</p>
-        </div>
+        </Link>
       }
       { 
         user && 

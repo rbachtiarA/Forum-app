@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from "@/lib/prisma"
-import { createAdminClient, createSSRClient } from "@/lib/supabase/server"
+import { createAdminClient, createServerSideClient } from "@/lib/supabase/server"
 import { type LoginSchema } from "@/utils/schemas/LoginSchemas"
 import { type RegisterSchema } from "@/utils/schemas/RegisterSchema"
 import { AuthApiError } from "@supabase/supabase-js"
@@ -58,7 +58,7 @@ export async function signupAuthAction(formData: RegisterSchema) {
 
 export async function signinAuthAction({ email, password }: LoginSchema) {
     try {
-        const supabase = await createSSRClient()
+        const supabase = await createServerSideClient()
         const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password
@@ -85,7 +85,7 @@ export async function signinAuthAction({ email, password }: LoginSchema) {
 }
 
 export async function signoutAuthAction() {
-  const supabase = await createSSRClient()
+  const supabase = await createServerSideClient()
   await supabase.auth.signOut();
   return redirect("/sign-in")
 }

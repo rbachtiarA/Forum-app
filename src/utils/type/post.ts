@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 
 export type PostUser = Prisma.PostGetPayload<{
     include: {
@@ -10,3 +10,5 @@ export type PostUser = Prisma.PostGetPayload<{
         }
     }
 }>
+
+export type PostUserProfile = Post
