@@ -75,6 +75,15 @@ export async function signinAuthAction({ email, password }: LoginSchema) {
     
 }
 
+export async function signinGoogleAuthAction() {
+  const supabase = await createServerSideClient()
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google'
+  })
+  
+  console.log(data, error);
+}
+
 export async function signoutAuthAction() {
   const supabase = await createServerSideClient()
   await supabase.auth.signOut();

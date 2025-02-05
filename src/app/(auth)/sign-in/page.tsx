@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import SigninGoogleButton from '@/features/auth/sign-in/SigninGoogleButton'
 import SigninLayout from '@/features/auth/sign-in/SigninLayout'
 import Link from 'next/link'
 
@@ -24,7 +24,7 @@ export default async function Page() {
           <span className='text-nowrap text-sm text-foreground'>or login with</span>
           <div className='w-full h-[1px] border' />
         </div>
-        <Button variant={'outline'} className='w-full font-semibold'>Login with Google Account</Button>
+        <SigninGoogleButton />
       </CardFooter>
     </Card>
   )
