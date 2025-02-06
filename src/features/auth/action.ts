@@ -89,3 +89,12 @@ export async function signoutAuthAction() {
   await supabase.auth.signOut();
   return redirect("/sign-in")
 }
+
+export async function profileUpdatePassword(password: string) {
+  const supabase = await createServerSideClient()
+  const { data, error } = await supabase.auth.updateUser({
+    password
+  })
+
+  return { data, error }
+}

@@ -40,7 +40,7 @@ export default function SigninLayout() {
           <Checkbox id='show-password' checked={showPassword} onCheckedChange={() => setShowPassword(!showPassword)}/>
           <label htmlFor="show-password">Show password</label>
         </div>
-        <Link href={'/sign-in?con=forgot-pass'} className='italic'>Forget password ?</Link>
+        <Link href={'/forget-password'} className='italic'>Forget password ?</Link>
       </div>
       <div className='w-full'>
         {formError && <p className='text-center text-destructive text-sm'>{`${formError}`}</p>}

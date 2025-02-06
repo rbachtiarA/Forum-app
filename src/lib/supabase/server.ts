@@ -16,8 +16,8 @@ export async function createServerSideClient() {
                         cookiesToSet.forEach(({ name, value, options }) => {
                             cookiesStore.set(name, value, options)
                         });
-                    } catch {
-                        console.log('Error on server supabase client')
+                    } catch (error){
+                        console.log('Error on server supabase client', error)
                     }
                 }
             }
