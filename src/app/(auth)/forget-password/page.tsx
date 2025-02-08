@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import FirstWrapper from '@/components/wrapper/FirstWrapper'
-import SendResetPasswordEmail from '@/features/auth/profile/reset-password/SendResetPasswordEmail'
+import SendResetPasswordEmail from '@/features/auth/account/reset-password/SendResetPasswordEmail'
 import React from 'react'
 
 export default function page() {

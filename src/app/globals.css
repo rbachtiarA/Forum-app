@@ -8,6 +8,7 @@ body {
 
 @layer base {
   :root {
+    --navbar-height: 50px;
     --background: 220 100% 98.5%;
     --foreground: 220 10% 1%;
     --card: 220 10% 92.5%;
@@ -35,6 +36,7 @@ body {
     --radius: 0.5rem;
   }
   .dark {
+    --navbar-height: 50px;
     --background: 207 58.5% 2.16%;
     --foreground: 207 9% 96.35%;
     --card: 207 47% 3.5100000000000002%;

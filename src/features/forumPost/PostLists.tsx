@@ -3,11 +3,6 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { postsOptions } from './postQueries'
-// import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-// import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-// import { AvatarImage } from '@radix-ui/react-avatar'
-// import { postDateText } from './postDate'
-// import Link from 'next/link'
 import PostTemplate from './PostTemplate'
 
 export function PostLists() {

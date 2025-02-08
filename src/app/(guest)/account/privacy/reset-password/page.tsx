@@ -1,11 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import FirstWrapper from '@/components/wrapper/FirstWrapper'
-import FormResetPassword from '@/features/auth/profile/reset-password/FormResetPassword'
-import React from 'react'
+import FormResetPassword from '@/features/auth/account/reset-password/FormResetPassword'
 
 export default function page() {
   return (
-    <FirstWrapper>
+    <div className='h-full w-full flex justify-center items-center'>
         <Card>
             <CardHeader>
                 <CardTitle>
@@ -19,6 +17,6 @@ export default function page() {
                 <FormResetPassword />
             </CardContent>
         </Card>
-    </FirstWrapper>
+    </div>
   )
 }
