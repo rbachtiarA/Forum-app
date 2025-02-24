@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma"
 import { createAdminClient, createServerSideClient } from "@/lib/supabase/server"
 import { type LoginSchema } from "@/utils/schemas/LoginSchemas"
+import { ProfileEditSchema } from "@/utils/schemas/ProfileEditSchema"
 import { type RegisterSchema } from "@/utils/schemas/RegisterSchema"
 import { AuthApiError } from "@supabase/supabase-js"
 import { redirect } from "next/navigation"
@@ -115,4 +116,29 @@ export async function getUserProfile() {
 
   if(!userProfile) throw new Error('INVALID_USER')
   return userProfile
+}
+
+export async function updateUserProfile(data: ProfileEditSchema) {
+  const supabase = await createServerSideClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if(!user) return {
+    username: '',
+    name: null,
+    bio: null
+  }
+  return await prisma.profile.update({
+    where: {
+      id: user.id
+    },
+    omit: {
+      picture: true,
+      id: true
+    },
+    data: {
+      username: data.username,
+      name: data.displayName,
+      bio: data.bio
+    }
+  })
 }

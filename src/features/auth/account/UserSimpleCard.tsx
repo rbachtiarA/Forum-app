@@ -26,11 +26,11 @@ export default function UserSimpleCard() {
   return (
     <div className='flex gap-2 w-full justify-between items-center p-2'>
         <Avatar>
-            <AvatarImage src=''/>
+            <AvatarImage src={data?.picture??''}/>
             <AvatarFallback>DF</AvatarFallback>
         </Avatar>
         <div className='flex-1'>
-            <p>{data?.username}</p>
+            <p>{data?.name}</p>
             <p className='text-muted-foreground'>{data?.username}</p>
         </div>
         <div>

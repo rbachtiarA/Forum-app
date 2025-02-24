@@ -1,11 +1,15 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
+import { useQueryClient } from "@tanstack/react-query"
 import { redirect } from "next/navigation"
 
 export default function AuthNavbarHandler() {
+  const queryClient = useQueryClient()
+  const supabase = createClient()
+
   const onLogout = () => {
-    const supabase = createClient()
+    queryClient.invalidateQueries()  
     supabase.auth.signOut()
     return redirect('/sign-in')
   }

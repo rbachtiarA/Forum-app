@@ -8,7 +8,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
     return (
         <>
             <NavbarLayout user={user.data.user!}/>
-            <main className="flex-1 flex flex-col justify-center items-center h-full px-1 py-2">
+            <main className="flex-1 flex flex-col justify-center items-center h-full">
                 {children}
             </main>
         </>

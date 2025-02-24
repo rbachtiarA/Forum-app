@@ -9,7 +9,7 @@ interface FormProps extends FormHTMLAttributes<HTMLFormElement>  {
 
 export default function Form({ onSubmit, className = "", children, ...props } : FormProps) {
   return (
-    <form onSubmit={onSubmit} className={`max-w-[480px] w-full ${className}`} {...props}>
+    <form onSubmit={onSubmit} className={`w-full ${className}`} {...props}>
         {children}
     </form>
   )

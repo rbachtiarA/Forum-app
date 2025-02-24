@@ -20,7 +20,7 @@ export default function PostTemplate({ post, currentDate }: { post: PostUser, cu
             <div className='flex justify-center items-center gap-2'>
                 <Link href={`/${post.user.username}`} className='flex gap-2 justify-center items-center group'>
                     <Avatar>
-                        <AvatarImage src={post.user.picture} alt='profile picture' />
+                        <AvatarImage src={post.user.picture??''} alt='profile picture' />
                         <AvatarFallback>{post.user.username[0].toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <p className='group-hover:underline'>{post.user.username}</p>

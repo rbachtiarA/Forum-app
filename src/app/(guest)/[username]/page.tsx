@@ -3,6 +3,7 @@ import SecondWrapper from "@/components/wrapper/secondWrapper"
 import ProfileActionButton from "@/features/forumPost/permission/ProfileActionButton"
 import { userPermission } from "@/features/forumPost/permission/userPermission"
 import PostTemplate from "@/features/forumPost/PostTemplate"
+import ProfileHeader from "@/features/forumPost/ProfileHeader"
 
 export default async function page({ params }: { params: Promise<{username: string}> }) {
   const currentDate = new Date()
@@ -22,6 +23,7 @@ export default async function page({ params }: { params: Promise<{username: stri
   return (
     <FirstWrapper>
       <SecondWrapper>
+        <ProfileHeader userProfile={data.userProfile}/>
         <ProfileActionButton permission={data.permission} />
         <div className="flex flex-col gap-y-2">
           {data.posts!.map((post) => (

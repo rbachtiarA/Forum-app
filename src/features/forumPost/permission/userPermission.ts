@@ -11,19 +11,16 @@ export async function getUserSession() {
 
 export async function userPermission(username: string) {
     let permission: 'VISITOR' | 'OWNER' = 'VISITOR'
-    const userPageId = await prisma.profile.findUnique({
+    const userProfile = await prisma.profile.findUnique({
         where: {
             username
-        },
-        select: {
-            id: true
         }
     })
-    if(!userPageId?.id) return { data: null, error: 'INVALID_PAGE' }
+    if(!userProfile?.id) return { data: null, error: 'INVALID_PAGE' }
 
     const userPagePosts = await prisma.post.findMany({
         where: {
-            userId: userPageId?.id
+            userId: userProfile?.id
         },
         include: {
             user: {
@@ -39,9 +36,10 @@ export async function userPermission(username: string) {
     const { data: { user: visitor }, error } = await supabase.auth.getUser()
     
     if(error || !visitor) return { data: null, error: 'AUTH_INVALID' }
-    if(userPageId.id === visitor.id) permission = 'OWNER' 
+    if(userProfile.id === visitor.id) permission = 'OWNER' 
     return {
         data: {
+            userProfile,
             posts: userPagePosts,
             permission
         },
