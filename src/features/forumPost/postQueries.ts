@@ -3,8 +3,12 @@ import { getPosts } from "./action"
 export const postsOptions = queryOptions({
     queryKey: ["posts"],
     queryFn: async () => {
-        return await getPosts()
+        try {
+            return await getPosts()
+        } catch {
+            return null
+        }
     },
-    refetchInterval: 30000,
-    staleTime: 60000
+    staleTime: 30000,
+    refetchOnWindowFocus: false
 })

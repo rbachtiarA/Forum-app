@@ -15,6 +15,5 @@ export const userOptions = queryOptions({
     queryFn: async () => {
         return await fetchUserProfile()
     },
-    refetchInterval: 30000,
-    staleTime: 60000
+    refetchOnWindowFocus: false
 })

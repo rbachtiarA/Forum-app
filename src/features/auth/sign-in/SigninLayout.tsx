@@ -10,12 +10,13 @@ import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { signinAuthAction } from '../action'
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function SigninLayout() {
     const form = useForm<LoginSchema>({
       resolver: zodResolver(loginSchema)
     })
-    
+    const queryClient = useQueryClient()
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = form
     const [formError, setFormError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
@@ -23,6 +24,7 @@ export default function SigninLayout() {
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (data) => {
       setFormError('')
       const status = await signinAuthAction(data)
+      queryClient.invalidateQueries()
       if(status !== 'success') {
         setFormError(status)
         return;
