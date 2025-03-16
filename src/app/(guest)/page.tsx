@@ -1,6 +1,6 @@
 import FirstWrapper from "@/components/wrapper/FirstWrapper";
-import CreatePostLayout from "@/features/forumPost/CreatePostLayout";
-import PostsLayout from "@/features/forumPost/PostsLayout";
+import CreatePostLayout from "@/features/feedPosts/CreatePostLayout";
+import PostsLayout from "@/features/feedPosts/PostsLayout";
 
 export default async function Page() {
   return (

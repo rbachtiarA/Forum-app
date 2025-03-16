@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Profile } from "@prisma/client";
+import { type Profile } from "@prisma/client";
 
 export default function ProfileHeader({ userProfile }: { userProfile: Profile }) {
   const { username, name, bio, picture } = userProfile
