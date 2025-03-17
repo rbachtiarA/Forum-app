@@ -48,11 +48,11 @@ export default function NavbarAvatarDropdown() {
       }
       {
         data &&
-        <div className='relative w-full'>
+        <div className='relative w-full flex justify-center items-center'>
           <button className='hover:grayscale-[50%] transition border-2 rounded-full border-primary' onClick={() => setIsDropdown((prev) => !prev)}>
             <AvatarProfile picture={data.picture??''} username={data.username} />
           </button>
-          <div className={`${isDropdown? `-left-[175px] w-[200px] mt-2 absolute` : 'hidden'} bg-secondary rounded-md border-primary border flex flex-col gap-2 p-2`}>
+          <div className={`${isDropdown?  `right-0 top-[50px] w-[200px] absolute` : 'hidden'} bg-secondary rounded-md border-primary border flex flex-col gap-2 p-2`}>
             <div className='flex gap-2 items-center font-semibold text-sm'>
               <AvatarProfile picture={data.picture??''} username={data.username} />
               <p>{data.name}</p>
