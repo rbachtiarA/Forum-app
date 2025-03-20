@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { loginSchema, LoginSchema } from '@/utils/schemas/LoginSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { signinAuthAction } from '../action'
-import { useQueryClient } from '@tanstack/react-query'
 
 export default function SigninLayout() {
     const form = useForm<LoginSchema>({
@@ -20,7 +20,7 @@ export default function SigninLayout() {
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = form
     const [formError, setFormError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-
+    const router = useRouter()
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (data) => {
       setFormError('')
       const status = await signinAuthAction(data)
@@ -30,7 +30,8 @@ export default function SigninLayout() {
         return;
       }
       reset()
-      redirect('/')
+      router.push('/')
+      
     }
 
   return (

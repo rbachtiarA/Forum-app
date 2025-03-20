@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export default function NavbarLayout() {
   return (
-    <nav className="w-full flex flex-row-reverse md:flex-row justify-between items-center p-1 bg-secondary text-foreground h-[var(--navbar-height)] md:px-10 py-2">
+    <nav className="w-full flex justify-between items-center p-1 bg-secondary text-foreground h-[var(--navbar-height)] md:px-10 py-2">
       <div className="flex justify-center items-center gap-4 text-xl">
         <Image src={'/Kriibo-logo.svg'} width={40} height={40} alt="Kriibo logo"/>
         <h1>Kriibo</h1>

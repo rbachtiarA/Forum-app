@@ -103,19 +103,19 @@ export async function profileUpdatePassword(password: string) {
 export async function getUserProfile() {
   const supabase = await createServerSideClient()
   const { data: { user }, error } = await supabase.auth.getUser()
-  if(error || !user) return null
+  if(error) return { user: null, error: 'AUTH_INVALID' } 
   
   const userProfile = await prisma.profile.findUnique({
     where: {
-      id: user.id
+      id: user!.id
     },
     omit: {
       id: true
     }
   })
 
-  if(!userProfile) throw new Error('INVALID_USER')
-  return userProfile
+  if(!userProfile) return { user: userProfile, error: 'USER_INVALID' }
+  return { user: userProfile, error: null }
 }
 
 export async function updateUserProfile(data: ProfileEditSchema) {
