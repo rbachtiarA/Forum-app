@@ -4,7 +4,11 @@ export type FeedPost = {
     updatedAt: string,
     title: string,
     content: string,
-    user: string
+    user: string,
+    upvote: number,
+    totalVote: number,
+    totalComment: number
+
 }
 
 export type FeedUser = {

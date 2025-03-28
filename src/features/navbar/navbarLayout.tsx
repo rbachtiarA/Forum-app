@@ -13,7 +13,7 @@ export default function NavbarLayout() {
         <Link href={'/'}>Home</Link>
         <li>Search</li>
         <li>My Posts</li>
-        <li>Settings</li>
+        <Link href={'/account'}>Settings</Link>
       </ol>
       <div className="flex gap-x-1 w-[44px]">
         <NavbarAvatarDropdown />

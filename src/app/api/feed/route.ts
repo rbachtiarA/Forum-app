@@ -3,10 +3,10 @@ import { Prisma } from "@prisma/client"
 import { type NextRequest } from "next/server"
 
 export async function GET(
-    requset: NextRequest,
+    request: NextRequest,
 ) {
     const limit = 5
-    const searchParams = requset.nextUrl.searchParams
+    const searchParams = request.nextUrl.searchParams
     const cursor = searchParams.get("c")
     const username = searchParams.get("u")
     let postsParameter: Prisma.PostWhereInput = {} 
@@ -43,14 +43,45 @@ export async function GET(
                     name: true,
                     picture: true
                 }
+            },
+            _count: {
+                select: {
+                    comment: true,
+                    votes: true
+                }
+            },
+            votes: {
+                select: {
+                    voteScore: true,
+                    user: {
+                        select: {
+                            username: true
+                        }
+                    }
+                }
             }
         },
+        
     })
-
     const users: { [key:string]: { name: string | null, picture: string | null } } = {};
+    if(posts.length == 0) return Response.json({
+        users,
+        posts: [],
+        cursor: ""
+    })
     const formattedPost = posts.map((post) => {
         users[post.user.username] = { name: post.user.name, picture: post.user.picture }
-        return { ...post, user: post.user.username}
+        const upvote = post.votes.filter((vote) => vote.voteScore === 1).length - post.votes.length
+        return {
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            createdAt: post.createdAt,
+            user: post.user.username,
+            upvote,
+            totalComment: post._count.comment,
+            totalVote: post._count.votes  
+        }
     })
     const lastCursor = (new Date(formattedPost[formattedPost.length - 1].createdAt)).valueOf()
     return Response.json({

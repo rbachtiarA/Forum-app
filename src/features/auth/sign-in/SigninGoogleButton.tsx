@@ -9,7 +9,7 @@ export default function SigninGoogleButton() {
         await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${process.env.NEXT_PUBLIC_HOSTNAME_URL}/auth`
+                redirectTo: `${process.env.NEXT_PUBLIC_API_URL}/auth`
             }
         })
     }
