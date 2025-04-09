@@ -15,8 +15,8 @@ export default function ProfileHeader({ userProfile }: { userProfile: Profile })
                 <p className="text-muted-foreground">{username}</p>
             </div>
         </div>
-        <p>
-            {bio ?? 'Default Text'}
+        <p className={!bio ? 'text-muted-foreground' : ''}>
+            {bio? bio : "User have not set a bio yet"}
         </p>
     </div>
   )

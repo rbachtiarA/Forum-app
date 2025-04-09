@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
-import { postDateText } from './postDate'
+import { postDateText } from '../../utils/postDate'
 import { FeedPost, FeedUser } from '@/utils/type/feed'
 import Link from 'next/link'
 import { ArrowBigDown, ArrowBigUp, MessageSquare } from 'lucide-react'
@@ -11,7 +11,7 @@ export default function PostCard({ post, currentDate, user }: { post: FeedPost, 
     <Card className=''>
         <CardHeader className='flex flex-col py-3 space-y-2'>
             <div className='flex gap-2'>
-                <Link href={`/${post.user}`} className='flex gap-2 items-center group'>
+                <Link href={`/${post.user}`} className='flex gap-2 items-center group' prefetch={false}>
                     <Avatar className='h-6 w-6'>
                         <AvatarImage src={user.picture??''} alt='profile picture' />
                         <AvatarFallback className='text-xs'>{post.user[0].toUpperCase()}</AvatarFallback>

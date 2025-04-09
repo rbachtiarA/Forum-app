@@ -1,9 +1,9 @@
 import FirstWrapper from "@/components/wrapper/FirstWrapper"
 import SecondWrapper from "@/components/wrapper/secondWrapper"
-import UserPostsFeed from "@/features/feedPosts/UserPostsFeed"
-import ProfileActionButton from "@/features/feedPosts/permission/ProfileActionButton"
-import { userPermission } from "@/features/feedPosts/permission/userPermission"
-import ProfileHeader from "@/features/feedPosts/ProfileHeader"
+import UserPostsFeed from "@/features/feed/UserPostsFeed"
+import ProfileActionButton from "@/features/feed/permission/ProfileActionButton"
+import { userPermission } from "@/features/feed/permission/userPermission"
+import ProfileHeader from "@/features/feed/ProfileHeader"
 
 export default async function page({ params }: { params: Promise<{username: string}> }) {
   

@@ -15,12 +15,12 @@ export default function layout({ children }: { children: ReactNode }) {
             {/* CONTENT */}
             <div className='flex flex-col space-y-2 w-full flex-1'>
                 {/* change username, display name, bio */}
-                <Link href={'/account/profile'} className='flex gap-x-1 items-center hover:underline font-bold'>
+                <Link href={'/account/profile'} className='flex gap-x-1 items-center hover:underline font-bold' prefetch={false}>
                     <UserCogIcon size={'1em'}/>
                     Profile
                 </Link>
                 {/* change password & email */}
-                <Link href={'/account/privacy'} className='flex gap-x-1 items-center hover:underline font-bold'>
+                <Link href={'/account/privacy'} className='flex gap-x-1 items-center hover:underline font-bold' prefetch={false}>
                     <LockIcon size={'1em'}/>
                     Privacy
                 </Link>

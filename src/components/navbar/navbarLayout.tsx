@@ -10,7 +10,7 @@ export default function NavbarLayout() {
         <h1>Kriibo</h1>
       </div>
       <ol className="md:flex flex-row gap-8 hidden font-semibold">
-        <Link href={'/'}>Home</Link>
+        <Link href={'/'} prefetch={false}>Home</Link>
         <li>Search</li>
         <li>My Posts</li>
         <Link href={'/account'}>Settings</Link>

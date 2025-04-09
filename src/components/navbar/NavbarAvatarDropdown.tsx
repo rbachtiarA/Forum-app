@@ -4,8 +4,8 @@ import { useUserProfile } from '@/hooks/useUserProfile'
 import { UserRound, UserRoundCog } from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode, useEffect, useState } from 'react'
-import SignoutButton from '../auth/sign-in/SignoutButton'
-import ThemeToogleTextWithIcon from '../themeToogle/ThemeToogleTextWithIcon'
+import SignoutButton from '../../features/auth/sign-in/SignoutButton'
+import ThemeToogleTextWithIcon from '../../features/themeToogle/ThemeToogleTextWithIcon'
 
 function DropdownItem({ children }: { children: ReactNode }) {
   return (
@@ -59,7 +59,7 @@ export default function NavbarAvatarDropdown() {
             </div>
             <div className='h-[2px] w-full border-1 bg-muted-foreground'></div>
             <DropdownItem>
-              <Link className='flex w-full gap-2' href={`/${data.username}`}>
+              <Link className='flex w-full gap-2' href={`/${data.username}`} prefetch={false}>
                 <UserRound />
                 Profile
               </Link>

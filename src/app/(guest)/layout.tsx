@@ -1,5 +1,5 @@
 import GuestProtection from "@/features/auth/GuestProtection";
-import NavbarLayout from "@/features/navbar/navbarLayout";
+import NavbarLayout from "@/components/navbar/navbarLayout";
 import { ReactNode } from "react";
 
 export default async function AuthLayout({ children }: { children: ReactNode }) {
