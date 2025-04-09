@@ -5,9 +5,9 @@ import { useQuery } from '@tanstack/react-query'
 import { feedAPIOptions } from './feedQueries'
 import PostCard from './PostCard'
 
-export function PostsFeed() {
+export default function PostsFeed({username} :{ username?: string }) {
   const currentDate = new Date()
-  const { data, isError, isLoading } = useQuery(feedAPIOptions())      
+  const { data, isError, isLoading } = useQuery(feedAPIOptions(username))      
     
   if(isLoading) return (
     <div>
@@ -15,18 +15,18 @@ export function PostsFeed() {
     </div> 
   )
 
-  if(isError) return (
+  if(isError || !data) return (
     <div>
       <h1>500 : Internal Server Error</h1>
       <h2>Something is wrong, wait for our staff to fix it</h2>
     </div>
   )
 
-  if(data?.posts.length === 0) {
+  if(data?.posts.length === 0) return (
     <div>
-      <h1>There is no posts</h1>
+      <h1>{username ? 'User has not post anything yet' : 'There is no post to show'}</h1>
     </div>
-  }
+  )
 
   return (
     <>      
@@ -34,12 +34,9 @@ export function PostsFeed() {
         data &&
         <div className='flex flex-col gap-y-2 mt-2'>
           {
-            data.posts.length !== 0 ?
             data.posts.map((post) => (
-                  <PostCard key={post.id} post={post} currentDate={currentDate} user={data.users[post.user]}/> 
-              ))
-            :
-            <h1>There is no post</h1>
+                <PostCard key={post.id} post={post} currentDate={currentDate} user={data.users[post.user]}/> 
+            ))
           }
         </div>
       }

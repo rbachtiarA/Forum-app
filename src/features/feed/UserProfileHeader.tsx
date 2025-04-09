@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { type Profile } from "@prisma/client";
 
-export default function ProfileHeader({ userProfile }: { userProfile: Profile }) {
+export default function UserProfileHeader({ userProfile }: { userProfile: Profile }) {
   const { username, name, bio, picture } = userProfile
   return (
     <div className="flex flex-col gap-y-2">

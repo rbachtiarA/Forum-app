@@ -2,13 +2,16 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import SigninGoogleButton from '@/features/auth/sign-in/SigninGoogleButton'
 import SigninLayout from '@/features/auth/sign-in/SigninLayout'
 import Link from 'next/link'
-
+export const metadata = {
+  title: 'Login - Kriibo',
+  description: 'Login to your account',
+}
 export default async function Page() {
   return (
     <Card className='md:max-w-[480px]'>
       <CardHeader>
         <CardTitle>
-          Login Account
+          Login
         </CardTitle>
         <CardDescription>
           <p>Welcome to Kriibo App</p>

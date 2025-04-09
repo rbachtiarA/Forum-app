@@ -1,12 +1,25 @@
 import FirstWrapper from "@/components/wrapper/FirstWrapper"
 import SecondWrapper from "@/components/wrapper/secondWrapper"
-import UserPostsFeed from "@/features/feed/UserPostsFeed"
 import ProfileActionButton from "@/features/feed/permission/ProfileActionButton"
 import { userPermission } from "@/features/feed/permission/userPermission"
-import ProfileHeader from "@/features/feed/ProfileHeader"
+import PostsFeed from "@/features/feed/PostsFeed"
+import UserProfileHeader from "@/features/feed/UserProfileHeader"
 
+export async function generateMetadata({ params }: { params: Promise<{username: string}> }) {
+  const username = (await params).username
+  return {
+    title: `Kriibo - ${username}`,
+    description: `Kriibo - ${username}`,
+    openGraph: {
+      title: `Kriibo - ${username}`,
+      description: `Kriibo - ${username}`,
+      url: `https://kriibo-app.vercel.app/${username}`,
+      siteName: "Kriibo",
+      type: "website",
+    },
+  }
+}
 export default async function page({ params }: { params: Promise<{username: string}> }) {
-  
   const username = (await params).username
   const { userProfile, permission } = await userPermission(username)
 
@@ -19,9 +32,9 @@ export default async function page({ params }: { params: Promise<{username: stri
   return (
     <FirstWrapper>
       <SecondWrapper>
-        <ProfileHeader userProfile={userProfile}/>
+        <UserProfileHeader userProfile={userProfile}/>
         <ProfileActionButton permission={permission} />
-        <UserPostsFeed username={username}/>
+        <PostsFeed username={username}/>
       </SecondWrapper>
     </FirstWrapper>
   )
