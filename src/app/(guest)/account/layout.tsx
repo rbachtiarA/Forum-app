@@ -1,7 +1,6 @@
-import UserSimpleCard from '@/features/auth/account/UserSimpleCard'
 import { LockIcon, UserCogIcon } from 'lucide-react'
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export default function layout({ children }: { children: ReactNode }) {
   return (
@@ -9,7 +8,7 @@ export default function layout({ children }: { children: ReactNode }) {
         <aside className='min-w-[240px] max-w-[480px] h-full flex flex-col gap-y-4 justify-between bg-secondary pl-2'>
             {/* BRAND LOGO */}
             <div>
-                Logo
+                {/* Logo */}
             </div>
 
             {/* CONTENT */}
@@ -28,7 +27,7 @@ export default function layout({ children }: { children: ReactNode }) {
 
             {/* PROFILE USER */}
             <div className='w-full'>
-                <UserSimpleCard />
+                {/* <UserSimpleCard /> */}
             </div>
         </aside>
         <div className='px-2 py-1 flex w-full justify-center overflow-auto'>

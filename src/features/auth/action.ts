@@ -7,6 +7,7 @@ import { ProfileEditSchema } from "@/utils/schemas/ProfileEditSchema"
 import { type RegisterSchema } from "@/utils/schemas/RegisterSchema"
 import { AuthApiError } from "@supabase/supabase-js"
 import { redirect } from "next/navigation"
+import { createHash } from 'crypto'
 
 export async function signupAuthAction(formData: RegisterSchema) {
   try {
@@ -137,8 +138,80 @@ export async function updateUserProfile(data: ProfileEditSchema) {
     },
     data: {
       username: data.username,
-      name: data.displayName,
-      bio: data.bio
+      name: data.name,
+      bio: data.bio? data.bio : null,
+    }
+  })
+}
+
+export async function updateUserProfilePicture(file: File) {
+  const supabase = await createServerSideClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if(!user) return {
+    username: '',
+    name: null,
+    bio: null,
+    picture: null, 
+  }
+
+  const uniqueId = createHash('sha256').update(user.id).digest('hex')
+  const { data, error } = await supabase.storage.from('avatar').upload(`avatar-${uniqueId}.png`, file, {
+    upsert: true,
+    cacheControl: '3600',
+  })
+  
+  if(error) return {
+    username: '',
+    name: null,
+    bio: null,
+    picture: null, 
+  }
+
+  const { data: { publicUrl } } = supabase.storage.from('avatar').getPublicUrl(data.path)
+
+   return await prisma.profile.update({
+    where: {
+      id: user.id
+    },
+    omit:{
+      id: true
+    },
+    data: {
+      picture: `${publicUrl+`?v=${Date.now()}`}`
+    }
+  })
+}
+
+export async function deleteUserProfilePicture() {
+  const supabase = await createServerSideClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  const uniqueId = createHash('sha256').update(user!.id).digest('hex')
+  if(!user) return {
+    username: '',
+    name: null,
+    bio: null,
+    picture: null, 
+  }
+
+  const { error } = await supabase.storage.from('avatar').remove([`avatar-${uniqueId}.png`])
+
+  if(error) return {
+    username: '',
+    name: null,
+    bio: null,
+    picture: null, 
+  }
+
+  return await prisma.profile.update({
+    where: {
+      id: user.id
+    },
+    omit:{
+      id: true
+    },
+    data: {
+      picture: null
     }
   })
 }

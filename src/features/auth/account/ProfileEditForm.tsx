@@ -26,9 +26,8 @@ export default function ProfileEditForm() {
         if(data) {
             reset({
                 username: data.username,
-                bio: data.bio??'Default Bio',
-                displayName: data.name??'Default Name',
-                picture: data.picture??'DF'
+                bio: data.bio??undefined,
+                name: data.name??undefined,
             })
         }
     }, [data, reset])
@@ -46,27 +45,24 @@ export default function ProfileEditForm() {
         if(data) {
             reset({
                 username: data.username,
-                bio: data.bio??'Default Bio',
-                displayName: data.name??'Default Name',
-                picture: data.picture??'DF'
+                bio: data.bio??undefined,
+                name: data.name??undefined,
             })
         }
     }
 
     const onSubmit = async (data: ProfileEditSchema) => {
-        
         mutateAsync(data)
         alert('success update')
-
     }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-y-2'>
+    <Form onSubmit={handleSubmit(onSubmit)} className='flex flex-col h-full justify-between gap-y-2'>
         <FormField register={register('username')} label='Username' name='username' error={errors.username} type='text' />
-        <FormField register={register('displayName')} label='Display name' name='displayName' error={errors.displayName} type='text' />
-        <FormField register={register('bio')} label='Bio status' name='bio' error={errors.bio} type='textarea' />
+        <FormField register={register('name')} label='Display name' name='name' error={errors.name} type='text' />
+        <FormField register={register('bio')} label='Bio status' name='bio' error={errors.bio} type='textarea' placeholder='Insert your interest'/>
         <div className='flex gap-x-2'>
-            <Button onClick={onReset} variant={'destructive'} type='button'>
+            <Button onClick={onReset} disabled={!isDirty} variant={'destructive'} type='button'>
                 Reset
             </Button>
             <Button disabled={!isDirty} type='submit'>

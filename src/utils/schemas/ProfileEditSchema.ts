@@ -1,10 +1,9 @@
 import z from 'zod'
-import { bioSchema, displayNameSchema, imageUrlSchema, usernameSchema } from './schema'
+import { bioSchema, nameSchema, usernameSchema } from './schema'
 
 export const profileEditSchema = z.object({
     username: usernameSchema,
-    displayName: displayNameSchema,
-    picture: imageUrlSchema,
+    name: nameSchema,
     bio: bioSchema
 })
 

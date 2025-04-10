@@ -4,12 +4,13 @@ import { Input } from "../ui/input";
 interface FormFieldProps {
     name: string,
     label: string,
+    placeholder?: string,
     type?: string,
     register: UseFormRegisterReturn,
     error?: FieldError
 }
 
-export default function FormField({label, name, register, type, error} : FormFieldProps) {
+export default function FormField({label, name, register, type, error, placeholder} : FormFieldProps) {
 
     return (
         <div className={`flex flex-col w-full space-y-1`}>
@@ -19,6 +20,7 @@ export default function FormField({label, name, register, type, error} : FormFie
             <Input 
                 id={name}
                 type={type}
+                placeholder={placeholder}
                 {...register}
             />
             {error && <p className={`${error? 'text-destructive': ''}`}>{error.message}</p>}

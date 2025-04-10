@@ -6,8 +6,8 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 export const emailSchema = z.string().email()
 export const passwordSchema = z.string().min(8, 'Atleast 8 minimum letters').regex(/[a-z]/, 'Need contains 1 lowercase').regex(/[A-Z]/, 'Need contains 1 uppercase').regex(/[0-9]/, 'Need contains 1 digit')
 export const usernameSchema = z.string().trim().min(6, 'Username minimum length have 6 characters')
-export const displayNameSchema = z.string().trim().min(2, 'Display name must have atleast 2 length charachters')
-export const bioSchema = z.string()
+export const nameSchema = z.string().trim().min(2, 'Display name must have atleast 2 length charachters')
+export const bioSchema = z.string().optional()
 export const imageSchema = z.instanceof(File).superRefine(
     (file, ctx) => {
         if(!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
