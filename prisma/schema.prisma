@@ -21,12 +21,13 @@ model Post {
 }
 
 model Vote {
-  id        Int     @id @default(autoincrement())
   postId    Int
-  profileId String
+  userId String
   voteScore Int     @db.SmallInt
   post      Post    @relation(fields: [postId], references: [id])
-  user      Profile @relation(fields: [profileId], references: [id])
+  user      Profile @relation(fields: [userId], references: [id])
+
+  @@id([postId, userId])
 }
 
 model Profile {

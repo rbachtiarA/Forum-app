@@ -1,25 +1,22 @@
 export type FeedPost = {
-    id: number,
-    createdAt: string,
-    updatedAt: string,
-    title: string,
-    content: string,
-    user: string,
-    upvote: number,
-    totalVote: number,
-    totalComment: number
+  id: number;
+  createdAt: string;
+  user: FeedUserDetail;
+  updatedAt: string;
+  title: string;
+  content: string;
+  totalVote: number;
+  totalComment: number;
+  isVoted: "upvoted" | "downvoted" | null;
+};
 
-}
-
-export type FeedUser = {
-    name: string | null,
-    picture: string | null
-}
+export type FeedUserDetail = {
+  username: string;
+  name: string;
+  picture: string;
+};
 
 export type FeedPostsData = {
-    users: {
-        [key:string]: FeedUser
-    }
-    posts: FeedPost[],
-    cursor: string
-}
+  posts: FeedPost[];
+  cursor: string;
+};
