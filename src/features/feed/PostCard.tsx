@@ -11,6 +11,7 @@ import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { postDateText } from "../../utils/postDate";
 import VoteButton from "./post/vote/voteButton";
+import CommentButton from "./post/comment/commentButton";
 
 export default function PostCard({
   post,
@@ -54,6 +55,7 @@ export default function PostCard({
           totalVote={post.totalVote}
           voteStatus={post.isVoted}
         />
+        <CommentButton postId={post.id} totalComment={post.totalComment} />
         <div className="flex gap-1 bg-accent px-2 py-1 rounded-full">
           <p>{post.totalComment}</p>
           <MessageSquare />
