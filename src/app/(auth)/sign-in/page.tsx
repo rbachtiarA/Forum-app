@@ -23,9 +23,9 @@ export default async function Page() {
       </CardContent>
       <CardFooter className='flex flex-col gap-y-4'>
         <div className='w-full flex items-center gap-x-2'>
-          <div className='w-full h-[1px] border-t-2' />
+          <div className='w-full h-px border-t-2' />
           <span className='text-nowrap text-sm text-foreground'>or login with</span>
-          <div className='w-full h-[1px] border' />
+          <div className='w-full h-px border' />
         </div>
         <SigninGoogleButton />
       </CardFooter>

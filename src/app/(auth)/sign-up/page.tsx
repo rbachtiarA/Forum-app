@@ -20,11 +20,11 @@ export default async function Page() {
       </CardContent>
       <CardFooter className='flex flex-col gap-y-4'>
         <div className='w-full flex items-center gap-x-2'>
-          <div className='w-full h-[1px] border-t-2' />
+          <div className='w-full h-px border-t-2' />
           <span className='text-nowrap text-sm text-foreground'>or sign-up with</span>
-          <div className='w-full h-[1px] border' />
+          <div className='w-full h-px border' />
         </div>
-        <Button variant={'outline'} className='w-full font-semibold'>Sign-up with Google Account</Button>
+        <Button variant={'outline-solid'} className='w-full font-semibold'>Sign-up with Google Account</Button>
       </CardFooter>
     </Card>
   )
