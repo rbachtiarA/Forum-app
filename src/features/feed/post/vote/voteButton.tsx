@@ -71,22 +71,31 @@ export default function VoteButton({
     }
   };
 
+  const ButtonStyle = {
+    base: `hover:bg-black/10 rounded-full`,
+    upvote: `${
+      isVoted === "upvoted"
+        ? "fill-green-400 stroke-green-400 hover:fill-none"
+        : "hover:stroke-green-700"
+    }`,
+    downvote: `${
+      isVoted === "downvoted"
+        ? "fill-red-500 stroke-red-500 hover:fill-none"
+        : "hover:stroke-red-500"
+    }`,
+  };
+
   return (
     <div className="flex gap-2 bg-accent px-2 py-1 rounded-full">
-      <button onClick={() => handleUpvote(postId)}>
-        <ArrowBigUp
-          className={`${
-            isVoted === "upvoted" ? "fill-green-400 stroke-green-400" : ""
-          }`}
-        />
+      <button onClick={() => handleUpvote(postId)} className={ButtonStyle.base}>
+        <ArrowBigUp className={ButtonStyle.upvote} />
       </button>
       <p>{voteValue()}</p>
-      <button onClick={() => handleDownVote(postId)}>
-        <ArrowBigDown
-          className={`${
-            isVoted === "downvoted" ? "fill-red-500 stroke-red-500" : ""
-          }`}
-        />
+      <button
+        onClick={() => handleDownVote(postId)}
+        className={ButtonStyle.base}
+      >
+        <ArrowBigDown className={ButtonStyle.downvote} />
       </button>
     </div>
   );
