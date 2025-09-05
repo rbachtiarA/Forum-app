@@ -72,7 +72,7 @@ export default function VoteButton({
   };
 
   const ButtonStyle = {
-    base: `hover:bg-black/10 rounded-full`,
+    base: `hover:bg-black/10 rounded-full hover:cursor-pointer`,
     upvote: `${
       isVoted === "upvoted"
         ? "fill-green-400 stroke-green-400 hover:fill-none"
