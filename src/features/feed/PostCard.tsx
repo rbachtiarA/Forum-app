@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AvatarProfile from "@/components/AvatarProfile";
 import {
   Card,
   CardContent,
@@ -7,11 +7,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FeedPost, FeedUserDetail } from "@/utils/type/feed";
-import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { postDateText } from "../../utils/postDate";
-import VoteButton from "./post/vote/voteButton";
 import CommentButton from "./post/comment/commentButton";
+import VoteButton from "./post/vote/voteButton";
 
 export default function PostCard({
   post,
@@ -25,18 +24,19 @@ export default function PostCard({
   return (
     <Card className="">
       <CardHeader className="flex flex-col py-3 space-y-2">
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <Link
             href={`/${user.username}`}
             className="flex gap-2 items-center group"
             prefetch={false}
           >
-            <Avatar className="h-6 w-6">
-              <AvatarImage src={user.picture ?? ""} alt="profile picture" />
-              <AvatarFallback className="text-xs">
-                {user.username}
-              </AvatarFallback>
-            </Avatar>
+            <AvatarProfile
+              src={user.picture ?? ""}
+              alt="profile picture"
+              username={user.username}
+              height={24}
+              width={24}
+            />
             <p className="group-hover:underline">{user.username}</p>
           </Link>
           •
@@ -55,11 +55,11 @@ export default function PostCard({
           totalVote={post.totalVote}
           voteStatus={post.isVoted}
         />
-        <CommentButton postId={post.id} totalComment={post.totalComment} />
-        <div className="flex gap-1 bg-accent px-2 py-1 rounded-full">
-          <p>{post.totalComment}</p>
-          <MessageSquare />
-        </div>
+        <CommentButton
+          username={post.user.username}
+          postId={post.id}
+          totalComment={post.totalComment}
+        />
       </CardFooter>
     </Card>
   );
