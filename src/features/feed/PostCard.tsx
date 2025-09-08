@@ -6,19 +6,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FeedPost, FeedUserDetail } from "@/utils/type/feed";
 import Link from "next/link";
 import { postDateText } from "../../utils/postDate";
 import CommentButton from "./post/comment/commentButton";
 import VoteButton from "./post/vote/voteButton";
+import type { Post, UserDetail } from "@/utils/type/post";
 
 export default function PostCard({
   post,
   currentDate,
   user,
 }: {
-  post: FeedPost;
-  user: FeedUserDetail;
+  post: Post<string>;
+  user: UserDetail;
   currentDate: Date;
 }) {
   return (

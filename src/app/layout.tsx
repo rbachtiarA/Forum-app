@@ -15,14 +15,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Kriibo - Social Media",
-  description: "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
+  description:
+    "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
   openGraph: {
     title: "Kriibo - Social Media",
-    description: "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
+    description:
+      "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
     url: "https://kriibo-app.vercel.app",
     siteName: "Kriibo",
     type: "website",
@@ -34,15 +36,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Provider>
-          {children}
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

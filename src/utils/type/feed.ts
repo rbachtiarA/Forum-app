@@ -1,8 +1,8 @@
 export type FeedPost = {
   id: number;
-  createdAt: string;
+  createdAt: Date;
   user: FeedUserDetail;
-  updatedAt: string;
+  updatedAt: Date;
   title: string;
   content: string;
   totalVote: number;
@@ -12,8 +12,8 @@ export type FeedPost = {
 
 export type FeedUserDetail = {
   username: string;
-  name: string;
-  picture: string;
+  name: string | null;
+  picture: string | null;
 };
 
 export type FeedPostsData = {
