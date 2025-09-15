@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   description:
     "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
   },
   openGraph: {
     title: "Kriibo - Social Media",
     description:
       "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
-    url: "https://kriibo-app.vercel.app",
+    url: "https://kriibo.vercel.app",
     siteName: "Kriibo",
     type: "website",
   },
