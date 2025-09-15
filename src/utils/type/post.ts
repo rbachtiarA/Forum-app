@@ -27,3 +27,8 @@ export type Comment<TDate> = {
 export type PostGetResponse = {
   post: Post<string>;
 };
+
+export type FeedGetResponse = {
+  posts: Post<string>[];
+  cursor: string;
+};
