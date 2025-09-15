@@ -17,7 +17,7 @@ export function postDateText(postTime: Date, currentTime: Date) {
     const int = Math.floor(diff / oneDay);
     return pluralTime(int, "day");
   } else {
-    const date = new Date(diff * 1000);
+    const date = new Date(postTime);
     return `${date.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
