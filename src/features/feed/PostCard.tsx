@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { postDateText } from "../../utils/postDate";
-import CommentButton from "./post/comment/commentButton";
+import CommentButton from "../comment/comment.button";
 import VoteButton from "./post/vote/voteButton";
 import type { Post, UserDetail } from "@/utils/type/post";
 
