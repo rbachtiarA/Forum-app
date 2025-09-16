@@ -31,7 +31,7 @@ export default function PostCard({
             prefetch={false}
           >
             <AvatarProfile
-              src={user.picture ?? ""}
+              src={user.picture}
               alt="profile picture"
               username={user.username}
               height={24}

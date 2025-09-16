@@ -8,16 +8,26 @@ export default function AvatarProfile({
   alt,
   username,
 }: {
-  src: string;
+  src: string | null;
   width: number;
   height: number;
   alt: string;
   username: string;
 }) {
-  const { props } = getImageProps({ src, width, height, alt });
+  const defaultSrc = "/image/default-avatar.png";
+  const { props } = getImageProps({
+    src: src || defaultSrc,
+    width,
+    height,
+    alt,
+  });
+
   return (
     <Avatar>
-      <AvatarImage {...props} />
+      <AvatarImage
+        {...props}
+        onError={(e) => (e.currentTarget.src = defaultSrc)}
+      />
       <AvatarFallback className="bg-secondary text-secondary-foreground">
         {username.toUpperCase()[0]}
       </AvatarFallback>
