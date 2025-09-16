@@ -1,9 +1,9 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import CommentContainer from "../../comment/comment.Container";
 import { usePostQueries } from "../../queries/postQueries";
 import PostView from "./PostView";
-import CommentContainer from "../../comment/comment.list";
 
 export default function PostContainer({ postId }: { postId: number }) {
   const { data, isError, isLoading } = useQuery(usePostQueries(postId));

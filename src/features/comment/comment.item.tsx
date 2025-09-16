@@ -16,13 +16,13 @@ export default function CommentItem({
       </div>
       <div>
         {/* header (picture, username, date post) */}
-        <div>
+        <div className="mt-4 text-sm">
           <span className="flex gap-4 items-center">
             <AvatarProfile
               username={comment.user.username}
               src={comment.user.picture ?? ""}
-              width={24}
-              height={24}
+              width={12}
+              height={12}
               alt={`profile picture of ${comment.user.username}`}
             />
             <p>{comment.user.name}</p>•
