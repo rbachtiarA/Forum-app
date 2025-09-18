@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { createServerSideClient } from "@/lib/supabase/server";
 import { Prisma } from "@prisma/client";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 function userVoteStatus(voteNumber: number | null) {
   switch (voteNumber) {
@@ -26,7 +26,10 @@ export async function GET(request: NextRequest) {
     let cursorParameter: Prisma.PostWhereInput = {};
 
     const supabase = await createServerSideClient();
-    const { data: user, error } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
     if (username)
       postsParameter = {
         user: {
@@ -34,7 +37,10 @@ export async function GET(request: NextRequest) {
         },
       };
 
-    if (!user || error) {
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (error) {
       throw new Error("Something wrong with cookies");
     }
 
@@ -72,7 +78,7 @@ export async function GET(request: NextRequest) {
         },
         votes: {
           where: {
-            userId: user.user.id,
+            userId: user.id,
           },
           select: {
             voteScore: true,

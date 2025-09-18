@@ -4,12 +4,20 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { feedAPIOptions } from "../queries/feedQueries";
 import PostCard from "./PostCard";
+import { useRouter } from "next/navigation";
 
 export default function PostContainer({ username }: { username?: string }) {
+  const router = useRouter();
   const currentDate = new Date();
-  const { data, isError, isLoading } = useQuery(feedAPIOptions(username));
+  const { data, isError, error, isLoading } = useQuery(
+    feedAPIOptions(username)
+  );
 
   if (isLoading) return <div>Fetching Data...</div>;
+
+  if (error) {
+    router.push("/sign-in");
+  }
 
   if (isError || !data)
     return (

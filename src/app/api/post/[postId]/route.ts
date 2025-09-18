@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { createServerSideClient } from "@/lib/supabase/server";
 import { Post } from "@/utils/type/post";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 function userVoteStatus(voteNumber: number | null) {
   switch (voteNumber) {
@@ -23,7 +23,14 @@ export async function GET(
   const { postId } = await params;
 
   const supabase = await createServerSideClient();
-  const { data: user, error } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   if (error) {
     console.error(error);
@@ -60,7 +67,7 @@ export async function GET(
       },
       votes: {
         where: {
-          userId: user.user.id,
+          userId: user.id,
         },
         select: {
           voteScore: true,

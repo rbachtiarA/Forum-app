@@ -1,4 +1,3 @@
-"use server";
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
@@ -17,9 +16,7 @@ export async function createServerSideClient() {
             cookiesToSet.forEach(({ name, value, options }) => {
               cookiesStore.set(name, value, options);
             });
-          } catch (error) {
-            console.log("Error on server supabase client", error);
-          }
+          } catch {}
         },
       },
     }

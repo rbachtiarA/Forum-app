@@ -1,12 +1,27 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import CommentContainer from "../../comment/comment.Container";
 import { usePostQueries } from "../../queries/postQueries";
 import PostView from "./PostView";
 
 export default function PostContainer({ postId }: { postId: number }) {
-  const { data, isError, isLoading } = useQuery(usePostQueries(postId));
+  const router = useRouter();
+  const {
+    data,
+    isError,
+    error: err,
+    isLoading,
+  } = useQuery(usePostQueries(postId));
+
+  useEffect(() => {
+    if (isError && err.message === "Unauthorized") {
+      router.push("/sign-in");
+    }
+  }, [err, isError, router]);
+
   if (isLoading) {
     return (
       <div>
