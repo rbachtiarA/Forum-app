@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description:
     "A social media platform for everyone, share your thoughts and ideas, and discuss with others",
   icons: {
-    icon: "/kriibo-logo.svg",
-    shortcut: "/kriibo-logo.svg",
+    icon: "/Kriibo-logo.svg",
+    shortcut: "/Kriibo-logo.svg",
   },
   openGraph: {
     title: "Kriibo - Social Media",
