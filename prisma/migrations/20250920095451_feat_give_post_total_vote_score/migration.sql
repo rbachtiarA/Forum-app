@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "voteScores" INTEGER NOT NULL DEFAULT 0;
