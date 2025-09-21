@@ -6,13 +6,13 @@ export default function AvatarProfile({
   width,
   height,
   alt,
-  username,
+  username = "DEFAULT",
 }: {
-  src: string | null;
+  src?: string | null;
   width: number;
   height: number;
   alt: string;
-  username: string;
+  username?: string;
 }) {
   const defaultSrc = "/image/default-avatar.png";
   const { props } = getImageProps({
