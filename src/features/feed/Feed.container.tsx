@@ -11,12 +11,6 @@ export default function FeedsContainer() {
 
   return (
     <>
-      {/* <div className="order-1">
-        <FeedHeader option={option} setOption={setOption} />
-      </div>
-      <div className="order-3">
-        <FeedList option={option} />
-      </div> */}
       <FeedHeader option={option} setOption={setOption} />
       <PostCreateContainer />
       <FeedList option={option} />

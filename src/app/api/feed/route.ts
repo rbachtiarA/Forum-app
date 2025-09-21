@@ -3,13 +3,6 @@ import { createServerSideClient } from "@/lib/supabase/server";
 import { Prisma } from "@prisma/client";
 import { NextResponse, type NextRequest } from "next/server";
 
-type FeedOptionsParams = {
-  userId: string;
-  cursorParameter: Prisma.PostWhereInput;
-  postsParameter: Prisma.PostWhereInput;
-  limit: number;
-};
-
 type FeedPostsType = Prisma.PostGetPayload<{
   include: {
     user: {
