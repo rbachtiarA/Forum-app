@@ -1,21 +1,13 @@
-import PostContainer from "@/features/feed/PostContainer";
+import FeedsContainer from "@/features/feed/Feed.container";
 import PostCreateContainer from "@/features/post/Post.CreateContainer";
-// import dynamic from "next/dynamic";
-
-// const PostsFeed = dynamic(() => import("@/features/feed/PostContainer"), {
-//   loading: () => <p>Loading</p>,
-// });
-
-// const PostCreateContainer = dynamic(
-//   () => import("@/features/post/Post.CreateContainer")
-// );
 
 export default async function Page() {
   return (
     <>
-      <PostCreateContainer />
-
-      <PostContainer />
+      <FeedsContainer />
+      {/* <div className="order-2">
+        <PostCreateContainer />
+      </div> */}
     </>
   );
 }

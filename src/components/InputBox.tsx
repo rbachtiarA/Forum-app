@@ -11,6 +11,7 @@ type InputContextType = {
   onSubmit: (val: string) => void;
   show: boolean;
   onToggle: () => void;
+  onFocus: () => void;
   actionLabel: string;
   placeholder: string;
 };
@@ -24,7 +25,7 @@ function useInputContext() {
   return ctx;
 }
 
-function Provider({
+function InputBoxProvider({
   children,
   actionLabel,
   onSubmit,
@@ -47,6 +48,7 @@ function Provider({
         value,
         show,
         onToggle: () => setShow(!show),
+        onFocus: () => setShow(true),
       }}
     >
       {children}
@@ -65,21 +67,23 @@ function Wrapper({ children }: { children: ReactNode }) {
 function Body() {
   const { value, setValue, placeholder } = useInputContext();
   const { data } = useUserProfile();
+  const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setValue(e.currentTarget.value);
   return (
-    <div className="flex justify-around px-2 py-1 items-center bg-white/80 dark:bg-neutral-900 rounded-4xl shadow-sm border w-full space-x-1 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary transition">
+    <div className="flex items-center justify-around w-full px-2 py-1 space-x-1 border rounded-xl shadow-sm bg-white/80 dark:bg-neutral-900 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary transition">
       <div>
         <AvatarProfile
           height={12}
           width={12}
-          src={data?.picture ?? null}
-          username={data?.username ?? "Default"}
+          src={data?.picture}
+          username={data?.username}
           alt="user picture"
         />
       </div>
       <Textarea
         className="resize-none px-2 align-middle min-h-0 border-0 focus:border-0 focus:outline-0 field-sizing-content"
         value={value}
-        onChange={(e) => setValue(e.currentTarget.value)}
+        onChange={handleOnChange}
         placeholder={placeholder}
       />
       <div className="">
@@ -91,16 +95,17 @@ function Body() {
 
 function Footer({ children }: { children?: ReactNode }) {
   const { value, setValue, onSubmit, actionLabel } = useInputContext();
+  const handleOnClick = () => {
+    onSubmit(value);
+    setValue("");
+  };
   return (
     <div className="flex w-full mt-2">
       <div className="flex items-center space-x-2">{children}</div>
       <div className="flex w-full justify-end">
         <Button
           className="px-3 py-1 bg-blue-500 text-white rounded-lg"
-          onClick={() => {
-            onSubmit(value);
-            setValue("");
-          }}
+          onClick={handleOnClick}
           disabled={value.trim() === ""}
         >
           {actionLabel}
@@ -165,20 +170,20 @@ function FocusWrapper({
   children: ReactNode;
   footer: ReactNode;
 }) {
+  const { onFocus, show } = useInputContext();
+
   return (
-    <div
-      className={`group border rounded-md p-4 focus-within:ring-2 focus-within:ring-blue-500`}
-    >
-      <div className="">{children}</div>
+    <div className={`group border rounded-md p-4`}>
+      <div onFocus={onFocus}>{children}</div>
 
       {/* Footer hidden by default, show on focus-within */}
-      <div className="hidden group-focus-within:block mt-2">{footer}</div>
+      {show && <div className="mt-2">{footer}</div>}
     </div>
   );
 }
 
 export const InputBox = {
-  Provider,
+  Provider: InputBoxProvider,
   ToggleWrapper,
   FocusWrapper,
   Wrapper,

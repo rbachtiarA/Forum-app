@@ -6,11 +6,17 @@ import { feedAPIOptions } from "../queries/feedQueries";
 import PostCard from "./PostCard";
 import { useRouter } from "next/navigation";
 
-export default function PostContainer({ username }: { username?: string }) {
+export default function FeedList({
+  username,
+  option,
+}: {
+  username?: string;
+  option?: "recent" | "friend" | "popular";
+}) {
   const router = useRouter();
   const currentDate = new Date();
   const { data, isError, error, isLoading } = useQuery(
-    feedAPIOptions(username)
+    feedAPIOptions(username, option)
   );
 
   if (isLoading) return <div>Fetching Data...</div>;
