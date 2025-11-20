@@ -78,6 +78,7 @@ export async function getFeed({
     ...(username ? { user: { username } } : {}),
     ...(cursor ? { createdAt: { lt: new Date(Number(cursor)) } } : {}),
   };
+
   const posts = await prisma.post.findMany({
     where: {
       ...filter,
@@ -86,12 +87,10 @@ export async function getFeed({
     omit: {
       userId: true,
     },
-    orderBy: {
-      ...(options !== "popular" ? { createdAt: "desc" } : {}),
-      ...(options === "popular"
-        ? { createdAt: "desc", trendScores: "desc" }
-        : {}),
-    },
+    orderBy:
+      options === "popular"
+        ? [{ trendScores: "desc" }, { createdAt: "desc" }]
+        : { createdAt: "desc" },
     include: {
       user: {
         select: {

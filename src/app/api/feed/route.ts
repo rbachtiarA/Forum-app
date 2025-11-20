@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const limit = 5;
+    const limit = 10;
     const searchParams = request.nextUrl.searchParams;
     const options =
       (searchParams.get("opt") as "friend" | "recent" | "popular") ?? "recent";
