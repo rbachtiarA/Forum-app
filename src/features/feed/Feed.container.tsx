@@ -2,7 +2,7 @@
 import { useState } from "react";
 import FeedHeader from "./Feed.header";
 import FeedList from "./Feed.list";
-import PostCreateContainer from "../post/Post.CreateContainer";
+import PostCreateContainer from "./post/create/Post.CreateContainer";
 
 export default function FeedsContainer() {
   const [option, setOption] = useState<"recent" | "popular" | "friend">(

@@ -20,8 +20,12 @@ export default async function AuthLayout({
   return (
     <>
       <NavbarLayout />
-      <main className="flex-1 flex flex-col justify-start items-center h-full">
-        <FirstWrapper>{children}</FirstWrapper>
+      <main className="flex-1 flex flex-col justify-start items-center h-full mt-[var(--navbar-height)]">
+        <FirstWrapper>
+          <div className="flex flex-col gap-2 w-full col-start-2">
+            {children}
+          </div>
+        </FirstWrapper>
       </main>
     </>
   );

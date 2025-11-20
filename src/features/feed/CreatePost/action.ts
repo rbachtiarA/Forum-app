@@ -1,5 +1,4 @@
 "use server";
-
 import prisma from "@/lib/prisma";
 import { createServerSideClient } from "@/lib/supabase/server";
 import { type PostSchema } from "@/utils/schemas/CreatePostSchema";

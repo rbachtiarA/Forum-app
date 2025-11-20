@@ -14,6 +14,7 @@ export default function VoteButton({
   totalVote: number;
 }) {
   const [isVoted, setIsVoted] = useState<FeedPost["isVoted"]>(voteStatus);
+  const [isLoading, setIsLoading] = useState(false);
   const voteValue = () => {
     let base = totalVote;
     if (isVoted === voteStatus) {
@@ -47,6 +48,7 @@ export default function VoteButton({
 
   const handleUpvote = async (postId: number) => {
     try {
+      setIsLoading(true);
       await upvotePost(postId);
       if (!isVoted || isVoted === "downvoted") {
         setIsVoted("upvoted");
@@ -55,11 +57,14 @@ export default function VoteButton({
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleDownVote = async (postId: number) => {
     try {
+      setIsLoading(true);
       await downvotePost(postId);
       if (!isVoted || isVoted === "upvoted") {
         setIsVoted("downvoted");
@@ -68,34 +73,42 @@ export default function VoteButton({
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const ButtonStyle = {
-    base: `hover:bg-black/10 rounded-full hover:cursor-pointer`,
-    upvote: `${
+    upvote: `stroke-1 ${
       isVoted === "upvoted"
-        ? "fill-green-400 stroke-green-400 hover:fill-none"
-        : "hover:stroke-green-700"
+        ? "fill-primary stroke-primary hover:fill-none"
+        : "hover:stroke-primary"
     }`,
-    downvote: `${
+    downvote: `stroke-1 ${
       isVoted === "downvoted"
-        ? "fill-red-500 stroke-red-500 hover:fill-none"
-        : "hover:stroke-red-500"
+        ? "fill-destructive stroke-destructive hover:fill-none"
+        : "group-hover/downvote:stroke-destructive"
     }`,
   };
 
   return (
-    <div className="flex gap-2 bg-accent px-2 py-1 rounded-full">
-      <button onClick={() => handleUpvote(postId)} className={ButtonStyle.base}>
+    <div className="flex items-center gap-2 text-md rounded-md bg-secondary">
+      <button
+        onClick={() => handleUpvote(postId)}
+        className={
+          "w-full h-full hover:bg-primary/20 rounded-l-md p-1 group/upvote"
+        }
+        disabled={isLoading}
+      >
         <ArrowBigUp className={ButtonStyle.upvote} />
       </button>
-      <p>{voteValue()}</p>
+      <span>{voteValue()}</span>
       <button
         onClick={() => handleDownVote(postId)}
-        className={ButtonStyle.base}
+        className="w-full h-full hover:bg-destructive/20 rounded-r-md p-1 group/downvote"
+        disabled={isLoading}
       >
-        <ArrowBigDown className={ButtonStyle.downvote} />
+        <ArrowBigDown className={`${ButtonStyle.downvote}`} />
       </button>
     </div>
   );

@@ -2,14 +2,14 @@
 import React, { useCallback } from "react";
 import { PostSchema } from "@/utils/schemas/CreatePostSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPost } from "./Post.Action";
 import PostPostInput from "./Post.Input";
+import { createPostAction } from "./Post.Action";
 
 export default function PostCreateContainer() {
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: async (data: PostSchema) => {
-      await createPost(data);
+      await createPostAction({ content: data.content, title: data.title });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });

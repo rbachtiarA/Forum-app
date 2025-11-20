@@ -18,8 +18,8 @@ export default function SignoutButton() {
   return (
     <Button
       onClick={onLogout}
-      variant={"destructive"}
-      className="flex w-full gap-2"
+      variant={"ghost"}
+      className="text-destructive flex w-full gap-2"
     >
       <LogOutIcon />
       Logout

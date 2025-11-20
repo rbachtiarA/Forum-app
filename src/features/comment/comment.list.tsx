@@ -5,7 +5,7 @@ export default function CommentList({
   comments,
   currDate,
 }: {
-  comments: Comment<string>[];
+  comments: Comment<Date>[];
   currDate: Date;
 }) {
   return (

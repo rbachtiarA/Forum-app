@@ -1,6 +1,6 @@
 import { InputBox } from "@/components/InputBox";
 
-export default function CommentPostInput({
+export default function CommentInput({
   handleSubmit,
 }: {
   handleSubmit: (val: string) => void;
@@ -10,6 +10,7 @@ export default function CommentPostInput({
       placeholder="Write a comment..."
       actionLabel="Post"
       onSubmit={handleSubmit}
+      labelId="commentInput"
     >
       <InputBox.ToggleWrapper actionLabel="New Comment">
         <InputBox.Wrapper>

@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { feedAPIOptions } from "../queries/feedQueries";
-import PostCard from "./PostCard";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { feedAPIOptions, infiniteFeedsOptions } from "../queries/feedQueries";
+import PostCard from "./post/PostCard";
 import { useRouter } from "next/navigation";
+import FeedSkeleton from "./Feed.Skeleton";
+import FeedWrapper from "@/components/wrapper/FeedWrapper";
+import { useIntersectionObserver } from "@/hooks/useInView";
 
 export default function FeedList({
   username,
@@ -15,11 +18,20 @@ export default function FeedList({
 }) {
   const router = useRouter();
   const currentDate = new Date();
-  const { data, isError, error, isLoading } = useQuery(
-    feedAPIOptions(username, option)
-  );
 
-  if (isLoading) return <div>Fetching Data...</div>;
+  const {
+    data,
+    isError,
+    error,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(infiniteFeedsOptions(username, option));
+
+  const ref = useIntersectionObserver(fetchNextPage, hasNextPage);
+
+  if (isLoading) return <FeedSkeleton />;
 
   if (error) {
     router.push("/sign-in");
@@ -33,7 +45,7 @@ export default function FeedList({
       </div>
     );
 
-  if (data?.posts.length === 0)
+  if (data?.pages.length === 0)
     return (
       <div>
         <h1>
@@ -47,16 +59,22 @@ export default function FeedList({
   return (
     <>
       {data && (
-        <div className="flex flex-col gap-y-2 mt-2">
-          {data.posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              currentDate={currentDate}
-              user={post.user}
-            />
-          ))}
-        </div>
+        <FeedWrapper>
+          {data.pages.map((page) =>
+            page.posts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                currentDate={currentDate}
+                user={post.user}
+                asLink
+              />
+            ))
+          )}
+          <div ref={ref} className="h-1" />
+          {isFetchingNextPage && <p>loading content...</p>}
+          {!hasNextPage && <p>You reach the bottom of the post</p>}
+        </FeedWrapper>
       )}
     </>
   );

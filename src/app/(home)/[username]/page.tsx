@@ -39,12 +39,10 @@ export default async function page({
     );
 
   return (
-    <FirstWrapper>
-      <SecondWrapper>
-        <UserProfileHeader userProfile={userProfile} />
-        <ProfileActionButton permission={permission} />
-        <PostContainer username={username} />
-      </SecondWrapper>
-    </FirstWrapper>
+    <>
+      <UserProfileHeader userProfile={userProfile} />
+      <ProfileActionButton permission={permission} />
+      <PostContainer username={username} />
+    </>
   );
 }

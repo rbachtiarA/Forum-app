@@ -29,6 +29,6 @@ export type PostGetResponse = {
 };
 
 export type FeedGetResponse = {
-  posts: Post<string>[];
+  posts: Post<Date>[];
   cursor: string;
 };

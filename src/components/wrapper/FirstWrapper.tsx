@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 export default function FirstWrapper({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full px-4 md:px-64 py-1 grid grid-rows-[auto_auto_1fr]">
+    <div className="w-full md:px-6 lg:px-10 xl:px-14 py-1 grid md:grid-cols-[1fr_4fr_1fr]">
       {children}
     </div>
   );

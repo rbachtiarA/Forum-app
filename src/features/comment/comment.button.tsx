@@ -1,6 +1,6 @@
-"use client";
+import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CommentButton({
   username,
@@ -11,18 +11,12 @@ export default function CommentButton({
   totalComment: number;
   username: string;
 }) {
-  const router = useRouter();
-  const ButtonStyle = {
-    base: `flex gap-2 bg-accent px-2 py-1 rounded-full hover:bg-black/10`,
-  };
-
-  const handleOnClick = () => {
-    router.push(`/${username}/post/${postId}`);
-  };
   return (
-    <button onClick={handleOnClick} className={ButtonStyle.base}>
-      <p>{totalComment}</p>
-      <MessageSquare />
-    </button>
+    <Button asChild size={"sm"} variant={"secondary"}>
+      <Link href={`/${username}/post/${postId}`}>
+        <p>{totalComment}</p>
+        <MessageSquare />
+      </Link>
+    </Button>
   );
 }

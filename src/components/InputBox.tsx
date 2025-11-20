@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { SmileIcon } from "lucide-react";
 
 type InputContextType = {
+  labelId: string;
   value: string;
   setValue: (val: string) => void;
   onSubmit: (val: string) => void;
@@ -28,12 +29,14 @@ function useInputContext() {
 function InputBoxProvider({
   children,
   actionLabel,
+  labelId,
   onSubmit,
   placeholder,
 }: {
   children: ReactNode;
   onSubmit: (val: string) => void;
   actionLabel: string;
+  labelId: string;
   placeholder: string;
 }) {
   const [show, setShow] = useState(false);
@@ -41,6 +44,7 @@ function InputBoxProvider({
   return (
     <InputContext.Provider
       value={{
+        labelId,
         onSubmit,
         actionLabel,
         placeholder,
@@ -58,19 +62,19 @@ function InputBoxProvider({
 
 function Wrapper({ children }: { children: ReactNode }) {
   return (
-    <div className="border rounded-md p-4 w-full shadow-sm bg-background">
+    <div className="border rounded-md p-4 shadow-sm bg-background">
       {children}
     </div>
   );
 }
 
 function Body() {
-  const { value, setValue, placeholder } = useInputContext();
+  const { value, setValue, placeholder, labelId } = useInputContext();
   const { data } = useUserProfile();
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setValue(e.currentTarget.value);
   return (
-    <div className="flex items-center justify-around w-full px-2 py-1 space-x-1 border rounded-xl shadow-sm bg-white/80 dark:bg-neutral-900 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary transition">
+    <div className="flex gap-1 items-center justify-around px-2 py-1 space-x-1 rounded-xl shadow-sm bg-white/80 dark:bg-neutral-900 focus-within:ring-2 focus-within:ring-ring transition">
       <div>
         <AvatarProfile
           height={12}
@@ -80,8 +84,12 @@ function Body() {
           alt="user picture"
         />
       </div>
+      <label htmlFor={labelId} className="sr-only">
+        {labelId}
+      </label>
       <Textarea
-        className="resize-none px-2 align-middle min-h-0 border-0 focus:border-0 focus:outline-0 field-sizing-content"
+        id={labelId}
+        className="resize-none px-2 break-all align-middle min-h-0 border-0 focus:border-0 focus:outline-0 field-sizing-content"
         value={value}
         onChange={handleOnChange}
         placeholder={placeholder}
@@ -94,17 +102,29 @@ function Body() {
 }
 
 function Footer({ children }: { children?: ReactNode }) {
-  const { value, setValue, onSubmit, actionLabel } = useInputContext();
+  const { value, setValue, onSubmit, actionLabel, show, onToggle } =
+    useInputContext();
   const handleOnClick = () => {
     onSubmit(value);
     setValue("");
   };
+  const onCancel = () => {
+    if (show && value) {
+      alert("cancel when there is content");
+      onToggle();
+    } else {
+      onToggle();
+    }
+  };
   return (
     <div className="flex w-full mt-2">
       <div className="flex items-center space-x-2">{children}</div>
-      <div className="flex w-full justify-end">
+      <div className="flex w-full gap-2 justify-end">
+        <Button onClick={onCancel} variant={"secondary"}>
+          Cancel
+        </Button>
         <Button
-          className="px-3 py-1 bg-blue-500 text-white rounded-lg"
+          className="px-3 py-1 rounded-lg"
           onClick={handleOnClick}
           disabled={value.trim() === ""}
         >

@@ -18,6 +18,8 @@ export async function createServerSideClient() {
             });
           } catch {}
         },
+        accessToken: "token",
+        refreshToken: "refresh",
       },
     }
   );

@@ -9,6 +9,7 @@ export default function PostPostInput({
     <InputBox.Provider
       placeholder="Share something"
       actionLabel="Create Post"
+      labelId="InputPost"
       onSubmit={handleSubmit}
     >
       <InputBox.FocusWrapper footer={<InputBox.Footer />}>

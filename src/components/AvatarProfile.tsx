@@ -1,5 +1,6 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { getImageProps } from "next/image";
+import Image, { getImageProps } from "next/image";
 
 export default function AvatarProfile({
   src,

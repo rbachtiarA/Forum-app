@@ -6,7 +6,7 @@ export default function CommentItem({
   comment,
   currentDate,
 }: {
-  comment: Comment<string>;
+  comment: Comment<Date>;
   currentDate: Date;
 }) {
   return (
