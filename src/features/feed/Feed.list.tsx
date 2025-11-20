@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { feedAPIOptions, infiniteFeedsOptions } from "../queries/feedQueries";
-import PostCard from "./post/PostCard";
-import { useRouter } from "next/navigation";
-import FeedSkeleton from "./Feed.Skeleton";
 import FeedWrapper from "@/components/wrapper/FeedWrapper";
 import { useIntersectionObserver } from "@/hooks/useInView";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { infiniteFeedsOptions } from "../queries/feedQueries";
+import FeedSkeleton from "./Feed.Skeleton";
+import PostCard from "./post/PostCard";
 
 export default function FeedList({
   username,

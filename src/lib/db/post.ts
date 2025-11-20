@@ -1,7 +1,6 @@
+import type { Post, Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import prisma from "../prisma";
-import type { Post, Prisma } from "@prisma/client";
-import { createServerSideClient } from "../supabase/server";
 
 async function updatePostTrendScores(
   tx: Prisma.TransactionClient,

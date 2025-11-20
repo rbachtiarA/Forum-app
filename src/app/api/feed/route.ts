@@ -1,7 +1,5 @@
 import { getFeed } from "@/lib/db/feed";
-import prisma from "@/lib/prisma";
 import { createServerSideClient } from "@/lib/supabase/server";
-import { Prisma } from "@prisma/client";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

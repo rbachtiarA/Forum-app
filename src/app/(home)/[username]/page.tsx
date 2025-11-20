@@ -1,8 +1,6 @@
-import FirstWrapper from "@/components/wrapper/FirstWrapper";
-import SecondWrapper from "@/components/wrapper/secondWrapper";
+import PostContainer from "@/features/feed/Feed.list";
 import ProfileActionButton from "@/features/feed/permission/ProfileActionButton";
 import { userPermission } from "@/features/feed/permission/userPermission";
-import PostContainer from "@/features/feed/Feed.list";
 import UserProfileHeader from "@/features/feed/UserProfileHeader";
 
 export async function generateMetadata({
