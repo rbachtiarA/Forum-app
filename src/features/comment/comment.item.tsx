@@ -1,6 +1,7 @@
 import AvatarProfile from "@/components/AvatarProfile";
 import { postDateText } from "@/utils/postDate";
 import { Comment } from "@/utils/type/post";
+import ReplyInput from "./comment.reply.input";
 
 export default function CommentItem({
   comment,
@@ -14,7 +15,7 @@ export default function CommentItem({
       <div className="w-6 flex justify-center hover:[&_div]:border-muted-foreground hover:cursor-pointer">
         <div className="border-l-2 border-muted"></div>
       </div>
-      <div>
+      <div className="w-full">
         {/* header (picture, username, date post) */}
         <div className="mt-4 text-sm">
           <span className="flex gap-4 items-center">
@@ -26,7 +27,9 @@ export default function CommentItem({
               alt={`profile picture of ${comment.user.username}`}
             />
             <p>{comment.user.name}</p>•
-            <p>{postDateText(new Date(comment.createdAt), currentDate)}</p>
+            <p title={`${comment.createdAt}`}>
+              {postDateText(new Date(comment.createdAt), currentDate)}
+            </p>
           </span>
         </div>
 
@@ -36,9 +39,8 @@ export default function CommentItem({
         </div>
 
         {/* footer */}
-        <div className="flex w-full">
-          <div className="w-full bg-gray h-4"></div>
-        </div>
+
+        <ReplyInput />
       </div>
     </div>
   );

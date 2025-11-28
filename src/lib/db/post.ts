@@ -1,4 +1,4 @@
-import type { Post, Prisma } from "@prisma/client";
+import type { Post, Prisma } from "@/generated/client";
 import { NextResponse } from "next/server";
 import prisma from "../prisma";
 

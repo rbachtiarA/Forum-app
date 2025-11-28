@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchAuth = async () => {
   const supabase = createClient();
-  const { user, isLogin } = await isLoggedIn(supabase);
+  const { user } = await isLoggedIn(supabase);
   return user;
 };
 

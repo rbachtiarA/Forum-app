@@ -12,7 +12,7 @@ export default function PostCreateContainer() {
       await createPostAction({ content: data.content, title: data.title });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["posts", "recent"] });
     },
     onError: () => {
       console.log("Error Creating Posts");

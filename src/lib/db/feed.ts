@@ -1,4 +1,4 @@
-import { type Prisma } from "@prisma/client";
+import { Prisma } from "@/generated/client";
 import prisma from "../prisma";
 
 type FeedPostsType = Prisma.PostGetPayload<{
