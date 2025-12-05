@@ -1,6 +1,6 @@
-import type { Post, Prisma } from "@/generated/client";
 import { NextResponse } from "next/server";
 import prisma from "../prisma";
+import { Post, Prisma } from "@prisma/client";
 
 async function updatePostTrendScores(
   tx: Prisma.TransactionClient,
@@ -52,11 +52,44 @@ export async function getPostById({
       where: { id: postId },
       include: {
         comment: {
+          where: {
+            parentId: null,
+          },
           omit: {
             postId: true,
             profileId: true,
           },
           include: {
+            other_Comment: {
+              omit: {
+                postId: true,
+                profileId: true,
+              },
+              include: {
+                other_Comment: {
+                  omit: {
+                    postId: true,
+                    profileId: true,
+                  },
+                  include: {
+                    user: {
+                      select: {
+                        username: true,
+                        picture: true,
+                        name: true,
+                      },
+                    },
+                  },
+                },
+                user: {
+                  select: {
+                    username: true,
+                    picture: true,
+                    name: true,
+                  },
+                },
+              },
+            },
             user: {
               select: {
                 username: true,
