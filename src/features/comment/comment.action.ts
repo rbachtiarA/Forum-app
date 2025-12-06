@@ -1,4 +1,10 @@
-export async function postComment({
+"use server";
+
+import { getCommentById, postComment, postReply } from "@/lib/db/comment";
+import { createServerSideClient } from "@/lib/supabase/server";
+import { Comment } from "@/utils/type/post";
+
+export async function postCommentOld({
   postId,
   content,
 }: {
@@ -6,7 +12,7 @@ export async function postComment({
   content: string;
 }) {
   try {
-    const data = await fetch(`/api/post/${postId}/comment`, {
+    const data = await fetch(`/api/post/${postId}/comment}`, {
       method: "POST",
       body: JSON.stringify({ content }),
     });
@@ -18,7 +24,7 @@ export async function postComment({
   }
 }
 
-export async function postReplies({
+export async function createReply({
   commentId,
   content,
 }: {
@@ -26,13 +32,79 @@ export async function postReplies({
   content: string;
 }) {
   try {
-    const data = await fetch(`/api/comment/${commentId}/reply`, {
-      method: "POST",
-      body: JSON.stringify({ content }),
+    const supabase = await createServerSideClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    if (!user || error) {
+      throw new Error("Couldnt connect to supabase");
+    }
+
+    const parent = await getCommentById(commentId);
+    if (!parent) {
+      throw new Error("Invalid comment");
+    }
+
+    const reply = await postReply({
+      commentId,
+      content,
+      userId: user!.id,
+      postId: parent.postId,
     });
-    const res = await data.json();
-    return res;
+
+    return {
+      status: true,
+      message: "success create reply",
+      result: reply,
+    };
   } catch (error) {
-    throw error;
+    return {
+      status: false,
+      message: "failed create reply",
+      result: null,
+    };
+  }
+}
+
+export async function createComment({
+  postId,
+  content,
+}: {
+  postId: number;
+  content: string;
+}) {
+  try {
+    const supabase = await createServerSideClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (!user || error) {
+      throw new Error("Couldnt connect to supabase");
+    }
+
+    if (!Number(postId)) {
+      throw new Error("Invalid post");
+    }
+
+    const comment = await postComment({
+      content,
+      postId: Number(postId),
+      userId: user.id,
+    });
+
+    return {
+      status: true,
+      message: "success create comment",
+      result: comment as Comment<Date>,
+    };
+  } catch {
+    return {
+      status: false,
+      message: "failed create comment",
+      result: null,
+    };
   }
 }

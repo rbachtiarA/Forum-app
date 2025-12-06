@@ -22,6 +22,7 @@ export type Comment<TDate> = {
   user: UserDetail;
   content: string;
   createdAt: TDate;
+  other_Comment?: Comment<TDate>[];
 };
 
 export type PostGetResponse = {

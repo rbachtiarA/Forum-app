@@ -44,6 +44,7 @@
   --radius-sm: calc(var(--radius) - 4px);
 
   --color-navbar-background: var(--navbar-background);
+  --color-branch-line: var(--accent);
 }
 
 /*
@@ -142,4 +143,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.branch-line::before {
+  @apply content-[''] absolute top-0 -left-5 border-b-2 border-l-2 border-accent size-6 rounded-bl-full hover:border-black;
 }
