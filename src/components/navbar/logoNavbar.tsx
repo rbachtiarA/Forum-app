@@ -9,8 +9,9 @@ export default function LogoNavbar() {
         width={40}
         height={40}
         alt="Kriibo logo"
+        unoptimized
       />
-      <h1 className="hidden md:block">Kriibo</h1>
+      <span className="hidden md:block">Kriibo</span>
     </Link>
   );
 }

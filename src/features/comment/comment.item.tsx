@@ -35,9 +35,7 @@ function UserInformation({
       ) : (
         <AvatarProfile
           username={comment.user.username}
-          src={comment.user.picture ?? ""}
-          width={12}
-          height={12}
+          src={comment.user.picture}
           alt={`profile picture of ${comment.user.username}`}
         />
       )}
@@ -102,7 +100,7 @@ function RepliesContainer({
   currentDate: Date;
 }) {
   return (
-    <div className={`contents peer-hover:[&>.branchline>*]:border-black`}>
+    <div className={`contents peer-hover:[&>.branchline>*]:border-foreground`}>
       {replies.map((reply, idx) => {
         const isLast = idx === replies.length - 1;
         return (

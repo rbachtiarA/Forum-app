@@ -43,8 +43,6 @@ export default function PostCard({
                 src={user.picture}
                 alt="profile picture"
                 username={user.username}
-                height={24}
-                width={24}
               />
               <p className="group-hover/username:underline">{user.username}</p>
             </Link>

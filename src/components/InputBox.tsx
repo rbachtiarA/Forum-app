@@ -77,8 +77,6 @@ function Body() {
     <div className="flex gap-1 items-center justify-around px-2 py-1 space-x-1 rounded-xl shadow-sm bg-white/80 dark:bg-neutral-900 focus-within:ring-2 focus-within:ring-ring transition">
       <div>
         <AvatarProfile
-          height={12}
-          width={12}
           src={data?.picture}
           username={data?.username}
           alt="user picture"

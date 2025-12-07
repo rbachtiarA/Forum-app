@@ -1,25 +1,24 @@
 "use client";
 import { getImageProps } from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { IMAGE } from "@/constant/image";
 
 export default function AvatarProfile({
   src,
-  width,
-  height,
   alt,
   username = "DEFAULT",
 }: {
   src?: string | null;
-  width: number;
-  height: number;
+  // width: number;
+  // height: number;
   alt: string;
   username?: string;
 }) {
-  const defaultSrc = "/image/default-avatar.png";
+  // const defaultSrc = "/image/default-avatar.png";
   const { props } = getImageProps({
-    src: src || defaultSrc,
-    width,
-    height,
+    src: src || "",
+    width: IMAGE.AVATAR.size,
+    height: IMAGE.AVATAR.size,
     alt,
   });
 
@@ -27,10 +26,10 @@ export default function AvatarProfile({
     <Avatar>
       <AvatarImage
         {...props}
-        onError={(e) => (e.currentTarget.src = defaultSrc)}
+        // onError={(e) => (e.currentTarget.src = defaultSrc)}
       />
       <AvatarFallback className="bg-secondary text-secondary-foreground">
-        {username.toUpperCase()[0]}
+        <span>{username.slice(0, 2).toUpperCase()}</span>
       </AvatarFallback>
     </Avatar>
   );

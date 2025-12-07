@@ -56,11 +56,9 @@ export default function NavbarAvatarDropdown() {
             onClick={toggleDropdown}
           >
             <AvatarProfile
-              src={data.picture ?? "/static/kriibo-default-avatar.png"}
-              alt="profile avatar"
-              height={60}
-              width={60}
-              username={data.username.slice(0, 1)}
+              src={data.picture}
+              alt="your avatar"
+              username={data.username}
             />
           </button>
           {isDropdown && (
@@ -69,11 +67,9 @@ export default function NavbarAvatarDropdown() {
             >
               <div className="flex gap-2 items-center font-semibold text-sm">
                 <AvatarProfile
-                  src={data.picture ?? "/static/kriibo-default-avatar.png"}
-                  alt="profile avatar"
-                  height={60}
-                  width={60}
-                  username={data.username.slice(0, 1)}
+                  src={data.picture}
+                  alt="your avatar"
+                  username={data.username}
                 />
                 <p>{data.name}</p>
               </div>
