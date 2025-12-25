@@ -5,19 +5,40 @@ import { Textarea } from "@/components/ui/textarea";
 import { EllipsisIcon, ReplyIcon, Share2Icon } from "lucide-react";
 import { Activity, useState } from "react";
 import { createReply } from "./comment.action";
-import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export default function ReplyCotainer({
   commentId,
   className,
-  onOptimistic,
+  cb,
 }: {
   commentId: number;
   className?: string;
-  onOptimistic?: () => void;
+  cb?: (comment: Comment) => void;
 }) {
   const [showInput, setShowInput] = useState(false);
+  const [isProcess, setIsProcess] = useState(false);
+  const [value, setValue] = useState("");
+  const handleSubmit = async () => {
+    if (value.trim().length === 0 || isProcess) return;
+    try {
+      setIsProcess(true);
+      const reply = await createReply({
+        commentId,
+        content: value,
+      });
+
+      if (reply.status) {
+        setValue("");
+      } else {
+        throw "Something wrong";
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsProcess(false);
+    }
+  };
 
   const handleRepliesButton = () => {
     setShowInput(!showInput);
@@ -43,7 +64,7 @@ export default function ReplyCotainer({
       </div>
 
       <Activity mode={showInput ? "visible" : "hidden"}>
-        <ReplyInput commentId={commentId} onCancel={handleCancel} />
+        <ReplyInput onSubmit={handleSubmit} onCancel={handleCancel} />
       </Activity>
     </div>
   );
@@ -51,33 +72,12 @@ export default function ReplyCotainer({
 
 function ReplyInput({
   onCancel,
-  commentId,
+  onSubmit,
 }: {
-  commentId: number;
+  onSubmit: (val: string) => void;
   onCancel?: () => void;
 }) {
-  const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState("");
-  const handleSubmit = async () => {
-    if (value.trim().length === 0 || isLoading) return;
-    try {
-      setIsLoading(true);
-      const reply = await createReply({
-        commentId,
-        content: value,
-      });
-
-      if (reply.status) {
-        setValue("");
-      } else {
-        throw "Something wrong";
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleCancel = () => {
     setValue("");
@@ -90,7 +90,7 @@ function ReplyInput({
         <Button size={"sm"} variant={"secondary"} onClick={handleCancel}>
           Cancel
         </Button>
-        <Button size={"sm"} variant={"default"} onClick={handleSubmit}>
+        <Button size={"sm"} variant={"default"} onClick={() => onSubmit(value)}>
           Reply
         </Button>
       </div>

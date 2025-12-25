@@ -1,82 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kriibo To-do list
 
-## Getting Started
+[v] is done
+[x] is cancelled
+[?] is need to be considered again
 
-First, run the development server:
+## 07/12/2025 Idea
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-# Features
-
-## Login
-
-### Register account
-
-User can make account by register their email (password based) to our database, or can use OAuth alternatives (passwordless based)
-
-### Verification account
-
-If user register by email, they will receive email verification message to registered email
-
-### Reset Password
-
-User can reset password by receiving confirmation message on their email
-
-## Profile
-
-### Edit Profile
-
-User can edit their profile details, such as name, profile pic and bio
-
-### Edit privacy
-
-User can change their email, password and username
-
-### Remove Account
-
-User can delete their account, suspend for 30days and removed after that
-
-## Post
-
-### Create Post
-
-A user can create a new post to their liking (only Text for now)
-
-### Edit & Remove Post
-
-A user can edit or remove their post
-
-### Reply & Reaction Post
-
-A user can give a reply and reaction (like) to a post
-
-###
+- [ ] creating a post have type `plain text`, `with images`
+- [ ] upload images with `size < 100kb` and `format png, jpg, jpeg, webp`
+- [ ] image have property of `url` and `alt` for image description.
+- [ ] postCard need to have difference variant if images exists
+- [ ] if `url` exists in content postCard can make that url metadata as header

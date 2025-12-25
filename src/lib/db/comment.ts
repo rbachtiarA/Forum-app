@@ -60,6 +60,8 @@ export async function postReply({
       },
     },
   });
+
+  return reply;
 }
 
 export async function getCommentById(commentId: number) {
